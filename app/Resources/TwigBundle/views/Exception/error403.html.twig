@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('bundles/venissieuxinventairesdbfront/stylesheets/intranet.css') }}" rel="stylesheet" />
+{% endblock %}
+
+
+{% block javascript_head %}
+{% endblock %}
+
+{% block body %}
+
+    <div id="page">
+        <div id="connexion">
+            <p>&nbsp;</p>
+        </div>
+        <div id="header">
+            <img src="{{ asset('bundles/venissieuxsuivimandatfront/images/header.png') }}" alt="Intranet de la ville de Vénissieux" />
+        </div>
+        <div id="error">
+            <br/>
+            <h1>Accès interdit</h1>
+            <br/>
+            <br/>
+            <br/>
+            <h2>Vous ne disposez pas des droits suffisants pour accéder à cette page. Merci de contacter l'administrateur de l'application.
+                <br/>
+                <br/>
+                <br/>Code erreur : <span class="error">{{ status_code }} {{ status_text }}</span>
+            </h2>
+        </div>
+        <div id="footer">
+            InventaireSDB v1.0 - Ville de Vénissieux - Direction des systèmes d'information - 2017
+        </div>
+    </div>
+{% endblock %}
+

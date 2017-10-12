@@ -1,0 +1,20 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    app.ldap:
+        class: 'Symfony\Component\Ldap\LdapClient'
+        arguments: ["ldap://pissaro.veni.local"]
+    monolog.formatter.user:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] [%%level_name%%] [%%username%%] %%message%% %%context%% %%extra%%\n"
+    monolog.processor.user:
+        class: Venissieux\InventaireSDB\FrontBundle\Utils\UserProcessor
+        arguments:  [@security.token_storage]
+        tags:
+            - { name: monolog.processor, method: processRecord }    
+        
+        

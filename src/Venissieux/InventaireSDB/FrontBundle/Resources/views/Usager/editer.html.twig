@@ -1,0 +1,33 @@
+{% extends 'VenissieuxInventaireSDBFrontBundle::layout.html.twig' %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+    
+    <!-- !!!!!!!!!!!!!!!!! BOUTON POUR EXPORTER !!!!!!!!!!!!!! !-->
+
+    {{ form_errors(form) }}
+
+    <div id="divFormulaire" class="formulaireType1">
+
+        <div>
+            {{ form_label(form.prenom) }}
+            {{ form_widget(form.prenom) }}
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom) }}
+        </div>
+        <div class="error">
+            {{ form_errors(form.prenom) }}
+            {{ form_errors(form.nom) }}
+        </div>
+
+    </div>
+    <div id ="divProjets">
+        <a class="lienRetour" href="{{ path('venissieux_inventaire_SDB_front_usager_lister') }}">Retour</a> &nbsp&nbsp {{ form_widget(form.valider) }}
+    </div>
+
+    {{ form_end(form) }}
+
+
+
+{% endblock %}

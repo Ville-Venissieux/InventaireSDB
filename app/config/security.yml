@@ -1,0 +1,49 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_CONTRIBUTEUR : ROLE_USER
+        ROLE_GESTIONNAIRE : ROLE_CONTRIBUTEUR
+        ROLE_ADMIN: ROLE_GESTIONNAIRE
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        chain_provider:
+            chain:
+                providers: [fos_userbundle, my_ldap]
+        fos_userbundle:
+            id: fos_user.user_provider.username
+        my_ldap:
+            ldap:
+                service: app.ldap
+                base_dn: DC=veni,DC=local
+                search_dn: "dsi_intra"
+                search_password: "apl,intra,01"
+                filter: (sAMAccountName={username})
+                default_roles: ROLE_CONTRIBUTEUR
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            form_login_ldap:
+                provider: fos_userbundle
+                service : app.ldap
+                dn_string: "{username}@veni.local"
+                default_target_path: venissieux_inventaire_SDB_front_usager_lister
+                csrf_token_generator: security.csrf.token_manager
+
+            logout:
+                path: fos_user_security_logout
+                target: fos_user_security_login
+            anonymous:    true
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/front, role: ROLE_GESTIONNAIRE }
+        - { path: ^/front/utilisateur, role: ROLE_ADMIN }

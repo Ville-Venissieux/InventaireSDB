@@ -1,0 +1,54 @@
+{% extends 'VenissieuxInventaireSDBFrontBundle::layout.html.twig' %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+    
+    
+    <div id="projetRechercheCriteres">
+            <div>
+                {{ form_label(form.usager) }}
+                {{ form_widget(form.usager, {'attr': {'onChange':'this.form.submit();'}}) }}
+            </div>
+    </div>
+<br/>
+    <table id="listeResultats">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Categorie</th>
+                <th>Etat</th>
+                <th>Commentaire</th>
+                <th>Retour</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in prets %}
+                <tr>
+                    <td>{{ p.article.id }}</td>
+                    <td>{{ p.article.nom }}</td>
+                    <td>{{ p.article.categorie ? p.article.categorie.libelle }}</td>
+                    <td>{{ p.article.etat ? p.article.etat.libelle }}</td>
+                    <td>{{ p.article.commentaire }}</td>
+                    <td>
+                        <input type="checkbox" name="retour_pret_{{ p.id }}" value="{{ p.id }}"/>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Aucun pret n'a été trouvé</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+    <div>    
+        {{ form_label(form.dateRetour) }}
+        {{ form_widget(form.dateRetour) }}
+    </div>
+    
+    {{ form_end(form) }}
+
+
+{% endblock %}

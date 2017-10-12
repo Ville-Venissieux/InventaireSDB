@@ -1,0 +1,61 @@
+{% extends 'VenissieuxInventaireSDBFrontBundle::layout.html.twig' %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    <div id="divRechercheArticles">
+
+        {{ form_widget(form.Nom) }}
+    </div>
+
+    {{ form_end(form) }}
+
+    
+
+    <table id="listeResultats">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in usagers %}
+                <tr>
+                    <td>{{ u.prenom }}</td>
+                    <td>{{ u.nom }}</td>
+                    <td class="nowrap">
+                        <a href="{{ path('venissieux_inventaire_SDB_front_usager_editer', { 'id': u.id }) }}">
+                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-31-pencil.png') }}" alt="Modifier" />
+                        </a>
+                        &nbsp;
+                       <a href="{{ path('venissieux_inventaire_SDB_front_usager_supprimer', { 'id': u.id }) }}" onclick="if (window.confirm('Voulez-vous vraiment supprimer les données concernant l\'usager {{ u.prenom }} {{ u.nom }} ?')) {
+                               return true;
+                           } else {
+                               return false;
+                           }">
+                           <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-17-bin.png') }}" alt="Supprimer" />
+                       </a>
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Aucun usager n'a été trouvé</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+    <div id ="nouvelItem">
+        <a href="{{ path('venissieux_inventaire_SDB_front_usager_ajouter') }}">
+            Ajouter un nouvel usager&nbsp;
+            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-433-plus.png') }}" alt="Ajouter" />
+        </a>
+    </div>
+
+
+
+{% endblock %}

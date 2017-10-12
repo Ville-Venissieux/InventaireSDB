@@ -1,0 +1,72 @@
+{% extends 'VenissieuxInventaireSDBFrontBundle::layout.html.twig' %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    <div id="divFormulaire" class="formulaireType1">
+
+        <div>
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.categorie) }}
+            {{ form_widget(form.categorie) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.date_achat) }}
+            {{ form_widget(form.date_achat ,{'attr': {'class': 'dateSelect'}}) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.prix_achat) }}
+            {{ form_widget(form.prix_achat) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.fournisseur) }}
+            {{ form_widget(form.fournisseur) }}
+        </div>
+        
+        {#<div>
+            {{ form_label(form.statut) }}
+            {{ form_widget(form.statut) }}
+        </div>#}
+        
+        <div>
+            {{ form_label(form.etat) }}
+            {{ form_widget(form.etat) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.commentaire) }}
+            {{ form_widget(form.commentaire) }}
+        </div>
+        
+        <div class="error">
+            {{ form_errors(form.nom) }}
+            {{ form_errors(form.categorie) }}
+            {{ form_errors(form.date_achat) }}
+            {{ form_errors(form.prix_achat) }}
+            {{ form_errors(form.fournisseur) }}
+            {#{{ form_errors(form.statut) }}#}
+            {{ form_errors(form.etat) }}
+            {{ form_errors(form.commentaire) }}
+        </div>
+
+    </div>
+        
+    <div id ="divProjets">
+        <a class="lienRetour" href="{{ path('venissieux_inventaire_SDB_front_article_lister') }}">Retour</a> &nbsp&nbsp {{ form_widget(form.valider) }}
+    </div>
+
+    {{ form_end(form) }}
+
+
+
+{% endblock %}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    
+    
+    <!-- accueil -->
+    <route id="venissieux_inventaire_SDB_front_accueil_afficher" path="/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Accueil:afficher</default>
+    </route>
+    
+    
+    <!-- articles -->
+    <route id="venissieux_inventaire_SDB_front_article_lister" path="/article/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:lister</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_article_voir" path="/article/voir/{id}">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:voir</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_article_ajouter" path="/article/ajouter/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:editer</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_article_editer" path="/article/editer/{id}">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:editer</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_article_supprimer" path="/article/supprimer/{id}">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:supprimer</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_article_exporter" path="/article/exporter/{id}">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:exporter</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_article_paginer" path="/article/paginer">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:paginer</default>
+    </route>
+   
+    
+    <!-- usagers -->
+    <route id="venissieux_inventaire_SDB_front_usager_lister" path="/usager/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Usager:lister</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_usager_ajouter" path="/usager/ajouter/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Usager:editer</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_usager_editer" path="/usager/editer/{id}">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Usager:editer</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_usager_supprimer" path="/usager/supprimer/{id}">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Usager:supprimer</default>
+    </route>
+    
+    
+    <!-- utilisateurs -->
+    <route id="venissieux_inventaire_SDB_front_utilisateur_lister" path="/utilisateur/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Utilisateur:lister</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_utilisateur_ajouter" path="/utilisateur/ajouter/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Utilisateur:editer</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_utilisateur_editer" path="/utilisateur/editer/{id}">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Utilisateur:editer</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_utilisateur_supprimer" path="/utilisateur/supprimer/{id}">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Utilisateur:supprimer</default>
+    </route>
+    
+    
+    <!-- Retours -->
+    <route id="venissieux_inventaire_SDB_front_retours" path="/retours/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Retours:lister</default>
+    </route>
+    
+    <!-- Prêts -->
+    <route id="venissieux_inventaire_SDB_front_prets" path="/prets/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Prets:lister</default>
+    </route>
+    
+
+</routes>

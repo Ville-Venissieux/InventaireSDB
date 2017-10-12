@@ -1,0 +1,58 @@
+{% extends 'VenissieuxInventaireSDBFrontBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <table id="listeResultats">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Categorie</th>
+                <th>Année d'achat</th>
+                <th>Statut</th>
+                <th>Etat</th>
+                <th>Commentaire</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          {#  {% for a in articles %}
+                <tr>
+                    <td>{{ a.id }}</td>
+                    <td>{{ a.nom }}</td>
+                    <td>{{ a.categorie ? a.categorie.libelle }}</td>
+                    <td>{{ a.dateAchat|date('Y') }}</td>
+                    <td>{{ a.statut }} </td>
+                    <td>{{  a.etat ? a.etat.libelle }}</td>
+                    <td>{{ a.commentaire }}</td>
+                    <td class="nowrap">
+                        <a href="{{ path('venissieux_inventaire_SDB_front_article_editer', { 'id': a.id }) }}">
+                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-31-pencil.png') }}" alt="Modifier" />
+                        </a>
+                        &nbsp;
+                        <a href="{{ path('venissieux_inventaire_SDB_front_article_supprimer', { 'id': a.id }) }}" onclick="if (window.confirm('Voulez-vous vraiment supprimer les données concernant l\'article {{ a.nom }}?')) {
+                                   return true;
+                               } else {
+                                   return false;
+                               }">
+                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-17-bin.png') }}" alt="Supprimer" />
+                        </a>
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Aucun article n'a été trouvé</td></tr>
+            {% endfor %} #}
+        </tbody>
+    </table>
+
+    <div id ="nouvelItem">
+        <a href="{{ path('venissieux_inventaire_SDB_front_article_ajouter') }}">
+            Ajouter un nouvel article&nbsp;
+            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-433-plus.png') }}" alt="Ajouter" />
+        </a>
+    </div>
+
+
+
+{% endblock %}
