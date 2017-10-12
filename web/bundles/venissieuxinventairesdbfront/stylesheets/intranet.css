@@ -1,0 +1,763 @@
+/* Feuille de styles Gestion des accès */
+
+body {
+    margin:0px;
+    padding:0px;
+    font-family:Lucida Grande, Arial, Helvetica, Verdana, sans-serif;
+    font-size:12px;
+    color:#464646;
+    background:#FFFFFF url("../images/bg_body.gif") repeat-x;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin:0px;
+    padding:0px;
+}
+
+p {
+    margin:0px;
+    padding:0px;
+}
+
+a {
+    color:#464646;
+    text-decoration:none;
+}
+
+img {
+    border:0px;
+}
+
+
+
+
+textarea,select, input[type=text],input[type=checkbox],input[type=radio]
+{
+    font-family:Lucida Grande, Arial, Helvetica, Verdana, sans-serif;
+    font-size:12px;
+}
+
+input[type=number]
+{
+    font-family:Lucida Grande, Arial, Helvetica, Verdana, sans-serif;
+    font-size:12px;
+    text-align: right;
+
+}
+
+button, input[type=submit]
+{
+    margin:25px 0px 5px 0px;
+    padding:4px 6px;
+    font-size:14px;
+    color:#FFFFFF;
+    background:#006E99;
+    border:0px;
+    cursor : pointer;
+}
+
+#page {
+    width:960px;
+    margin:0px auto;
+    background:#FFFFFF;
+}
+
+#connexion {
+    background:transparent;
+    width:100%;
+    text-align: right;
+    font-size:11px;
+    background:#FFFFFF url("../images/bg_body.gif") repeat-x;
+    padding:0px 0px 5px 0px;
+}
+
+#connexion a{
+    color:#464646;
+    text-decoration:underline;
+}
+
+#header {
+    width:960px;
+    height:152px;
+    overflow:hidden;
+    margin:0px 0px 0px 0px;
+    padding:0px;
+}
+
+#content {
+    margin-left:200px;
+    width:750px;
+    min-height: 450px;
+    padding:40px 0px 0px 0px;
+    background:#FFFFFF;
+}
+
+#error {
+    width:760px;
+    min-height: 450px;
+    margin:40px 100px 0px 100px;
+    background:#FFFFFF;
+}
+
+
+
+/* MENU */
+
+
+#menu {
+    position:absolute;
+    width: 180px;
+    margin: 10px;
+    padding: 0;
+    background:#FFFFFF;
+}
+
+#titreMenu {
+    width:100%;
+    text-align: center;
+    color: #006E99 ;
+    font-size: 20px;
+}
+
+
+#contentMenu {
+    background: #DDEEFF ;
+    list-style: none;
+    width:100%;
+    height : 300px;
+    border-radius:10px;
+}
+
+#contentMenu li {
+    list-style:none;
+}
+
+#contentMenu li a {
+    display: block ;
+    background: #DDEEFF ;
+    color: #006E99 ;
+    line-height: 1em ;
+    text-align: left ;
+    text-decoration: none ;
+    padding: 4px 0 ;
+    font-size: 16px;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+#menu li a:hover, #menu li a:focus, #menu li a:active {
+    font-weight: bold;
+}
+
+/* ACTIONS SUR LES FORMULAIRES */
+
+#divProjets
+{
+    clear : both;
+    text-align : center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.lienRetour{
+    font-size:14px;
+    color:#006E99;
+    text-decoration: underline;
+}
+
+
+/* RECHERCHE */
+#divRechercheCriteres label
+{
+    display: inline-block;
+    width : 140px ;
+    margin : 10px;
+    text-align: left;
+}
+
+#divRechercheCriteres select
+{
+    display: inline-block;
+    width : 400px ;
+}
+
+#divRechercheCriteres
+{
+    padding-top: 25px;
+    padding-left : 40px;
+}
+
+#divRechercheArticles
+{
+    padding-top: 0px;
+    padding-left : 30px;
+    padding-bottom: 10px;
+}
+
+#divRechercheBoutonsArticles
+{
+    display: inline-block;
+    padding-top: 0px;
+    padding-left : 70px;
+}
+
+#divRechercheBoutons
+{
+    clear : both;
+    text-align : center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#projet_search_ProjetObjectif
+{
+    width : 250px ;
+}
+
+#projetObjectif
+{
+    width : 480px ;
+    display: inline-block;
+}
+
+#projetContratVenissian
+{
+    margin-left: 5px;
+    width : 220px ;
+    display: inline-block;
+}
+
+
+
+/* NOUVEL USAGER */
+#nouvelItem
+{
+    margin:0px 10px 5px 10px;
+    padding:10px 6px;
+}
+
+#nouvelItem a
+{
+    font-size:14px;
+    font-weight:bold;
+    color:#006E99;
+}
+
+#nouvelItem img
+{
+    vertical-align: middle;
+}
+
+/* ONGLETS */
+
+#divOnglets
+{
+    border-bottom : 1px solid #9EA0A1;
+    padding-bottom : 34px;
+    margin : 0px 10px 0px 10px;
+}
+
+
+#onglets
+{
+    position : absolute;
+    border : 1px solid transparent;
+    padding : 0;
+    font : 14px Arial;
+    list-style-type : none;
+    left : 35%;
+    margin-top : 0;
+    width : 650px;
+}
+
+#onglets li
+{
+    float : left;
+    height : 30px; /* à modifier suivant la taille de la police pour centrer le texte dans l'onglet */
+    background-color: #F4F9FD;
+    margin : 2px 2px 0 2px !important;  /* Pour les navigateurs autre que IE */
+    margin : 1px 2px 0 2px;  /* Pour IE  */
+    border : 1px solid #9EA0A1;
+}
+
+#onglets li.active
+{
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+    font-weight: bold;
+}
+
+#onglets a
+{
+    display : block;
+    color : #006E99;
+    text-decoration : none;
+    padding : 4px;
+}
+
+#onglets a:hover
+{
+    background : #fff;
+    font-weight: bold;
+
+}
+
+
+#contentProjet
+{
+    min-height: 450px;
+    margin : 0px 10px 10px 10px;
+    padding-top: 25px;
+}
+
+
+.bordureOnglet
+{
+
+    border-bottom: 1px solid #9EA0A1;
+    border-left: 1px solid #9EA0A1;
+    border-right: 1px solid #9EA0A1;
+
+}
+
+
+/* FORMULAIRE */
+
+.formulaireType1 ,.formulaireType2,.formulaireType5
+{
+    padding-left : 40px;
+}
+
+.formulaireType1 div ,.formulaireType2 div
+{
+    display: inline-block;
+}
+
+.formulaireType1 label ,.formulaireType2 label, .formulaireType5 label
+{
+    display: inline-block;
+    width : 200px ;
+    margin : 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+
+.formulaireType1 input[type=text], .formulaireType1  textarea, .formulaireType1 select, .formulaireType3 textarea
+{
+    display: inline-block;
+    width: 400px;
+    vertical-align: middle;
+}
+
+.formulaireType2 input[type=text]
+{
+    display: inline-block;
+    width: 200px;
+    vertical-align: middle;
+}
+
+/* Formulaire avec espace à gauche et à droite */
+
+.encadrement
+{
+    padding-left : 20px;
+    padding-right : 20px;
+    padding-top : 10px;
+    padding-bottom : 10px;
+}
+
+
+
+/*Formulaire avec label textbox et combobox*/
+.ligneFormulaireType3 input[type=text]
+{
+    display: inline-block;
+    width: 260px;
+    vertical-align: middle;
+}
+
+.ligneFormulaireType3 select
+{
+    margin-left: 20px;
+    display: inline-block;
+    width: 115px;
+    vertical-align: middle;
+}
+
+
+
+/*Formulaire avec cases à cocher*/
+
+div.ligneFormulaireType4
+{
+    margin-left: 220px;
+}
+
+.ligneFormulaireType4 label
+{
+    display: inline-block;
+    width: 150px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.ligneFormulaireType4 input[type=checkbox]
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* formulaire avec des contrôles de 150 px */
+.formulaireType5 input[type=text], .formulaireType5 input[type=number], .formulaireType5  textarea, .formulaireType5 select
+{
+    display: inline-block;
+    width: 150px;
+    vertical-align: middle;
+
+}
+
+
+/* formulaire avec des montants */
+
+.formulaireType3 label:first-child
+{
+    display: inline-block;
+    width : 150px ;
+    margin : 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.formulaireType3 select
+{
+    display: inline-block;
+    width: 300px;
+    margin-top : 10px;
+    margin-bottom : 10px;
+    vertical-align: middle;
+}
+
+.ligneFormulaireType6 input[type=number]
+{
+    display: inline-block;
+    width: 75px;
+    margin-top : 10px;
+    margin-bottom : 10px;
+    vertical-align: middle;
+}
+
+.ligneFormulaireType6 label
+{
+    display: inline-block;
+    width: 30px;
+    vertical-align: middle;
+    margin-right:0px;
+    margin-left:5px; 
+}
+
+
+
+
+
+
+
+
+
+/* Pour définir des listes déroulantes de choix de dates */
+/* jour et année */
+.dateSelect  select:nth-child(odd)
+{
+    width: 50px;
+}
+
+/* mois */
+.dateSelect  select:nth-child(even)
+{
+    width: 90px;
+}
+
+/* Case à cocher décalée de 40px*/
+.checkboxDecale
+{
+    margin-left: 40px;
+}
+
+input[type=number].montantCourt
+{
+    width: 150px;
+}
+
+
+
+
+#projet_directionsAssociees label,#projet_view_directionsAssociees label
+{
+    display: inline-block;
+    width : 40px ;
+    margin : 0px;
+    text-align: left;
+}
+
+#projet_directionsAssociees,#projet_view_directionsAssociees
+{
+    display: inline-block;
+    width : 420px ;
+    vertical-align: middle;
+}
+
+#utilisateur_roles label
+{
+    display: inline-block;
+    width : 100px ;
+    margin : 0px;
+    text-align: left;
+}
+
+
+/* LISTES RESULTATS */
+
+#listeResultats
+{
+    margin : auto;
+    margin-bottom : 25px;
+}
+
+
+#listeResultats td, th ,tr
+{
+    border : solid 0px;
+    margin : 0px;
+    padding : 5px;
+}
+
+#listeResultats tr:nth-child(even)
+{
+    background: #FFFFFF;
+    color :  #006E99;
+}
+
+#listeResultats tr:nth-child(odd)
+{
+    background: #DDEEFF;
+    color :  #006E99;
+}
+
+#listeResultats thead>tr:first-child
+{
+    background: #006E99;
+    color : #FFFFFF;
+}
+
+
+#listeResultats td.nowrap
+{
+    white-space: nowrap;
+}
+
+#listeResultats2
+{
+    border-collapse:collapse;
+    width: 95%;
+    margin : auto;
+    margin-bottom : 25px;
+}
+
+#listeResultats2 td, th ,tr
+{
+    border : solid 0px;
+    margin : 0px;
+    padding : 5px;
+}
+
+#listeResultats2 tr:nth-child(even)
+{
+    background: #FFFFFF;
+    color :  #006E99;
+}
+
+#listeResultats2 tr:nth-child(odd)
+{
+    background: #DDEEFF;
+    color :  #006E99;
+}
+
+#listeResultats2 tr>th
+{
+    background: #006E99;
+    color : #FFFFFF;
+}
+
+
+#listeResultats2 td.nowrap
+{
+    white-space: nowrap;
+    text-align: right;
+}
+
+
+#listeItem
+{
+    border-collapse:collapse;
+    margin : 10px;
+    min-width: 465px;
+}
+
+#listeItem td, th ,tr
+{
+    border : solid 0px;
+    margin : 0px;
+    padding : 5px;
+    text-align: center;
+}
+
+#listeItem tr:nth-child(even)
+{
+    background: #FFFFFF;
+    color :  #006E99;
+}
+
+#listeItem tr:nth-child(odd)
+{
+    background: #DDEEFF;
+    color :  #006E99;
+}
+
+#listeItem tr:first-child
+{
+    background: #006E99;
+    color : #FFFFFF;
+}
+
+
+#listeItem td.nowrap
+{
+    white-space: nowrap;
+}
+
+
+
+
+
+#footer {
+    clear:both;
+    margin:10px 0px 10px 0px;
+    padding:6px 10px 8px 10px;
+    text-align:center;
+    background:#FFFFFF;
+    border-top:2px solid #322212;
+}
+
+
+.textMax{
+    width:250px;
+}
+
+.textMontant{
+    width:100px;
+}
+
+.error{
+    color:red;
+}
+
+.italic{
+    font-style: italic;
+}
+
+/* EXPORT */
+
+#exportPDF
+{
+    margin:0px 10px 5px 10px;
+    padding:10px 6px;
+    text-align: right;
+}
+
+#exportPDF a
+{
+    font-size:14px;
+    font-weight:bold;
+    color:#006E99;
+}
+
+#exportPDF img
+{
+    vertical-align: middle;
+}
+
+
+/* LOGIN */
+
+
+
+#divContentLogin {
+    width:100%;
+    height:500px;
+    line-height:500px;
+    padding:0px 0px 0px 0px;
+    text-align: center;
+}
+
+
+#divLogin
+{
+    vertical-align:middle;
+    width:350px;
+    line-height:1.2;
+    display:inline-block;
+    color:#006E99;
+}
+
+#divLogin fieldset
+{
+    border-color:#006E99;
+}
+
+#divLogin p
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+#divLogin label, #divLogin input[type=text],#divLogin input[type=password]
+{
+    display: inline-block;
+    width : 125px ;
+    margin : 5px;
+    text-align: left;
+}
+
+/* TOOLTIPS */
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #006E99;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+
+
