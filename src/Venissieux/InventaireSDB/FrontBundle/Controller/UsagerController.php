@@ -1,5 +1,5 @@
 <?php
-//test
+//test GIT
 
 namespace Venissieux\InventaireSDB\FrontBundle\Controller;
 
