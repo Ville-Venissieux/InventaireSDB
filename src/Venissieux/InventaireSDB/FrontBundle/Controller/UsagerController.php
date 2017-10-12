@@ -1,4 +1,5 @@
 <?php
+//test
 
 namespace Venissieux\InventaireSDB\FrontBundle\Controller;
 
