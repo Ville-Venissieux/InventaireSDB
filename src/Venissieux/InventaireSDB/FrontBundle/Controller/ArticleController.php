@@ -178,6 +178,9 @@ class ArticleController extends Controller {
      */
     public function paginerAction(Request $request) 
     { 
+        $logger = $this->get('logger');
+        
+        
         $length = $request->get('length'); 
         $length = $length && ($length!=-1)?$length:0; 
  
@@ -187,24 +190,31 @@ class ArticleController extends Controller {
         $search = $request->get('search'); 
         $filters = [ 
             'query' => @$search['value'] 
-        ]; 
+        ];
+        
+        $sortColumn=$request->get('columns')[$request->get('order')[0]['column']]['data'];
+        $sortDirection=$request->get('order')[0]['dir'];
  
         $articles = $this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search( 
-            $filters, $start, $length 
+            $filters, $start, $length,$sortColumn, $sortDirection
         ); 
          
         $output = array( 
             'data' => array(), 
             'recordsFiltered' => count($this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search($filters, 0, false)), 
-            'recordsTotal' => count($this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(array(), 0, false)) 
+            'recordsTotal' => count($this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(array(), 0, false))
         ); 
  
-        foreach ($articles as $article) { 
+        foreach ($articles as $article) {
+            
+            $logger->info('article ' . $article->getNom());
+            
+            
             $output['data'][] = [ 
                 'id' => $article->getId(), 
                 'nom' => $article->getNom(),
                 'categorie' => is_null($article->getCategorie())?'':$article->getCategorie()->getLibelle(),
-                'date_achat' => $article->getDateAchat()->format('Y'),
+                'date_achat' => is_null($article->getDateAchat())?'':$article->getDateAchat()->format('Y'),
                 'statut' => $article->getStatut(),
                 'etat' => is_null($article->getEtat())?'':$article->getEtat()->getLibelle(),
                 'commentaire' => $article->getCommentaire()
