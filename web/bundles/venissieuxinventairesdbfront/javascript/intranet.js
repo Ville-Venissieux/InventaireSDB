@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#listeResultatsArticle').DataTable({
+    $('#listeResultatsArticles').DataTable({
         //Afficher le champ de recherche
         searching: true,
         //Ne pas afficher le nombre de lignes par page

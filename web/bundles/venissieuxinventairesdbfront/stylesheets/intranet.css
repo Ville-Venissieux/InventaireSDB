@@ -516,40 +516,40 @@ input[type=number].montantCourt
 
 /* LISTES RESULTATS */
 
-#listeResultats
+#listeResultats, #listeResultatsArticles
 {
     margin : auto;
     margin-bottom : 25px;
 }
 
 
-#listeResultats td, th ,tr
+#listeResultats td, #listeResultatsArticles td
 {
     border : solid 0px;
     margin : 0px;
     padding : 5px;
 }
 
-#listeResultats tr:nth-child(even)
+#listeResultats tr:nth-child(even), #listeResultatsArticles tr:nth-child(even)
 {
     background: #FFFFFF;
     color :  #006E99;
 }
 
-#listeResultats tr:nth-child(odd)
+#listeResultats tr:nth-child(odd), #listeResultatsArticles tr:nth-child(odd)
 {
     background: #DDEEFF;
     color :  #006E99;
 }
 
-#listeResultats thead>tr:first-child
+#listeResultats thead>tr:first-child, #listeResultatsArticles thead>tr:first-child
 {
     background: #006E99;
     color : #FFFFFF;
 }
 
 
-#listeResultats td.nowrap
+#listeResultats td.nowrap, #listeResultatsArticles td.nowrap
 {
     white-space: nowrap;
 }
