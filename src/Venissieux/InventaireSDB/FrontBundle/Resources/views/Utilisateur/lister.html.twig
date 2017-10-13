@@ -34,7 +34,7 @@
                             <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-31-pencil.png') }}" alt="Modifier" />
                         </a>
                         &nbsp;
-                        <a href="{{ path('venissieux_inventaire_SDB_front_utilisateur_supprimer', { 'id': u.id }) }}" onclick="if (window.confirm('Voulez-vous vraiment supprimer les données concernant l\'utilisateur{{ u.username }} ?')) {
+                        <a href="{{ path('venissieux_inventaire_SDB_front_utilisateur_supprimer', { 'id': u.id }) }}" onclick="if (window.confirm('Voulez-vous vraiment supprimer les données concernant l\'utilisateur {{ u.username }} ?')) {
                                 return true;
                             } else {
                                 return false;

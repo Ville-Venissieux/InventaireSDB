@@ -1,6 +1,6 @@
 <?php
 
-namespace Venissieux\SuiviMandat\FrontBundle\Form;
+namespace Venissieux\InventaireSDB\FrontBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +22,6 @@ class UtilisateurType extends AbstractType {
                 ->add('nom', TextType::class, array('max_length' => 30, 'required' => false))
                 ->add('roles', ChoiceType::class, array('label' => 'Rôles',
                     'choices' => array(
-                        'ROLE_CONTRIBUTEUR' => 'Contributeur',
                         'ROLE_GESTIONNAIRE' => 'Gestionnaire',
                         'ROLE_ADMIN' => 'Administrateur'
                     ),
@@ -37,7 +36,7 @@ class UtilisateurType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Venissieux\SuiviMandat\FrontBundle\Entity\Utilisateur'
+            'data_class' => 'Venissieux\InventaireSDB\FrontBundle\Entity\Utilisateur'
         ));
     }
 
