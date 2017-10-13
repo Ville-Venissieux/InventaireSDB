@@ -217,7 +217,7 @@ class ArticleController extends Controller {
                 'date_achat' => is_null($article->getDateAchat())?'':$article->getDateAchat()->format('Y'),
                 'statut' => $article->getStatut(),
                 'etat' => is_null($article->getEtat())?'':$article->getEtat()->getLibelle(),
-                'commentaire' => $article->getCommentaire()
+                'commentaire' => mb_strimwidth($article->getCommentaire(),0,50,"...")
             ]; 
         } 
  
