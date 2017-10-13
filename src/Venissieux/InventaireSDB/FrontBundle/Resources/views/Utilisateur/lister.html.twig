@@ -1,0 +1,55 @@
+{% extends 'VenissieuxInventaireSDBFrontBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <div id ="nouvelItem">
+        <a href="{{ path('venissieux_inventaire_SDB_front_utilisateur_ajouter') }}">
+            Ajouter un nouvel utilisateur&nbsp;
+            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-433-plus.png') }}" alt="Ajouter" />
+        </a>
+    </div>
+
+    <table id="listeResultats">
+        <thead>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Rôles</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in utilisateurs %}
+                <tr>
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.prenom }}</td>
+                    <td>{{ u.nom }}</td>
+                    <td>{{ u.roles|join(', ')|replace({'ROLE_USER':'',
+                                                    'ROLE_CONTRIBUTEUR':'Contributeur',
+                                                    'ROLE_GESTIONNAIRE':'Gestionnaire',
+                                                    'ROLE_ADMIN':'Administrateur' })|trim(', ') }}</td>
+                    <td class="nowrap">
+                        <a href="{{ path('venissieux_inventaire_SDB_front_utilisateur_editer', { 'id': u.id }) }}">
+                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-31-pencil.png') }}" alt="Modifier" />
+                        </a>
+                        &nbsp;
+                        <a href="{{ path('venissieux_inventaire_SDB_front_utilisateur_supprimer', { 'id': u.id }) }}" onclick="if (window.confirm('Voulez-vous vraiment supprimer les données concernant l\'utilisateur{{ u.username }} ?')) {
+                                return true;
+                            } else {
+                                return false;
+                            }">
+                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-17-bin.png') }}" alt="Supprimer" />
+                        </a>
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Aucun utilisateur n'a été trouvé</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}

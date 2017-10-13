@@ -13,7 +13,7 @@
                 <li><a href="{{ path('venissieux_inventaire_SDB_front_usager_lister') }}">Gérer les usagers</a></li>
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
-               {# <li><a href="{{ path('venissieux_inventaire_SDB_front_utilisateur_lister') }}">Utilisateurs</a></li> #}
+                <li><a href="{{ path('venissieux_inventaire_SDB_front_utilisateur_lister') }}">Gérer les utilisateurs</a></li>
             {% endif %}
         </ul>
     </nav>
