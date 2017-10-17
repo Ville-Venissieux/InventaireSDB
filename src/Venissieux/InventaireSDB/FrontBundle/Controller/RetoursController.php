@@ -3,15 +3,12 @@
 namespace Venissieux\InventaireSDB\FrontBundle\Controller;
 
 use Venissieux\InventaireSDB\FrontBundle\Form\RetoursSearchType;
-//use Venissieux\InventaireSDB\FrontBundle\Form\RetourType;
-//use Venissieux\InventaireSDB\FrontBundle\Entity\Retour;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Controleur lié aux usagers
+ * Controleur lié aux retours de prêts
  */
 class RetoursController extends Controller {
 

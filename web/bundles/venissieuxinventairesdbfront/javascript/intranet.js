@@ -51,6 +51,10 @@ $(document).ready(function () {
             {orderable: false, targets: -1}
         ]
     });
+    
+    
+    //Force une taille minimum permettant l'affichage de la barre de chargement
+    $('#listeResultatsArticles_wrapper').css('min-height', '500px'); 
 });
 
 

@@ -6,15 +6,22 @@
 
     {{ form_errors(form) }}
 
-    <div id="divRechercheArticles">
-
-        {{ form_widget(form.Nom) }}
+    <div id="divRechercheCriteres">
+        {{ form_row(form.Nom) }}
+    </div>
+    <div id ="divRechercheBoutons">
+        {{ form_row(form.Rechercher) }}
     </div>
 
     {{ form_end(form) }}
 
-    
 
+    <div id ="nouvelItem">
+        <a href="{{ path('venissieux_inventaire_SDB_front_usager_ajouter') }}">
+            Ajouter un nouvel usager&nbsp;
+            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-433-plus.png') }}" alt="Ajouter" />
+        </a>
+    </div>
     <table id="listeResultats">
         <thead>
             <tr>
@@ -33,13 +40,13 @@
                             <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-31-pencil.png') }}" alt="Modifier" />
                         </a>
                         &nbsp;
-                       <a href="{{ path('venissieux_inventaire_SDB_front_usager_supprimer', { 'id': u.id }) }}" onclick="if (window.confirm('Voulez-vous vraiment supprimer les données concernant l\'usager {{ u.prenom }} {{ u.nom }} ?')) {
-                               return true;
-                           } else {
-                               return false;
-                           }">
-                           <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-17-bin.png') }}" alt="Supprimer" />
-                       </a>
+                        <a href="{{ path('venissieux_inventaire_SDB_front_usager_supprimer', { 'id': u.id }) }}" onclick="if (window.confirm('Voulez-vous vraiment supprimer les données concernant l\'usager {{ u.prenom }} {{ u.nom }} ?')) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }">
+                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-17-bin.png') }}" alt="Supprimer" />
+                        </a>
                     </td>
 
                 </tr>
@@ -48,13 +55,8 @@
             {% endfor %}
         </tbody>
     </table>
-        
-    <div id ="nouvelItem">
-        <a href="{{ path('venissieux_inventaire_SDB_front_usager_ajouter') }}">
-            Ajouter un nouvel usager&nbsp;
-            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-433-plus.png') }}" alt="Ajouter" />
-        </a>
-    </div>
+
+
 
 
 

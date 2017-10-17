@@ -47,7 +47,7 @@ input[type=number]
 
 button, input[type=submit]
 {
-    margin:25px 0px 5px 0px;
+    margin:10px 0px 5px 0px;
     padding:4px 6px;
     font-size:14px;
     color:#FFFFFF;
@@ -204,7 +204,7 @@ button, input[type=submit]
 {
     clear : both;
     text-align : center;
-    padding-top: 20px;
+    padding-top: 5px;
     padding-bottom: 20px;
 }
 
@@ -518,6 +518,8 @@ input[type=number].montantCourt
 
 #listeResultats, #listeResultatsArticles
 {
+    border-collapse:collapse;
+    width: 95%;
     margin : auto;
     margin-bottom : 25px;
 }

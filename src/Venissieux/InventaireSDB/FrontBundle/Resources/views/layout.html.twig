@@ -11,28 +11,6 @@
     <script src="{{ asset('bundles/venissieuxinventaireSDBfront/javascript/jquery-3.1.0.min.js') }}" charset="utf-8"></script>
     <script src="{{ asset('bundles/venissieuxinventaireSDBfront/javascript/jquery.dataTables.min.js') }}" charset="utf-8"></script>
     <script src="{{ asset('bundles/venissieuxinventaireSDBfront/javascript/intranet.js') }}" charset="utf-8"></script>
-    
-    {#<script>
-        $(document).ready(function () {
-            $('#listeResultats').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": "{{ path('venissieux_inventaire_SDB_front_article_paginer') }}",
-                "sAjaxDataProp": "data",
-                "pageLength": 10,
-                "columns": [
-                    {"data": "id"},
-                    {"data": "nom"},
-                    {"data": "categorie"},
-                    {"data": "date_achat"},
-                    {"data": "statut"},
-                    {"data": "etat"},
-                    {"data": "commentaire"}
-                ]
-            });
-        });
-    </script> #}
-    
 {% endblock %}
 
  {% block body %}
