@@ -75,6 +75,9 @@
     <route id="venissieux_inventaire_SDB_front_prets" path="/prets/">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Prets:lister</default>
     </route>
+    <route id="venissieux_inventaire_SDB_front_prets_paginer" path="/prets/paginer">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Prets:paginer</default>
+    </route>
     
 
 </routes>

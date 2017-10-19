@@ -2,33 +2,40 @@
 
 {% block content %}
 
-    {#{{ form_start(form) }}
+    {{ form_start(form) }}
 
-    {{ form_errors(form) }}#}
-    
-    <table id="listeResultatsArticles">
+    {{ form_errors(form) }}
+
+
+    <div class='ligneFormulaireType3'>    
+        {{ form_label(form.dateOperation) }}
+        {{ form_widget(form.dateOperation) }}
+    </div>
+    <br/>
+    <table id="listeResultatsArticlesPrets">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Categorie</th>
                 <th>Année d'achat</th>
-                <th>Statut</th>
                 <th>Etat</th>
                 <th>Commentaire</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        {# Géré par Ajax depuis le composant datatables #}
+            {# Géré par Ajax depuis le composant datatables #}
         </tbody>
     </table>
-    
-    {#<div id="divRechercheArticles">
-        {{ form_widget(form.Recherche) }}
+
+    <div id="divRechercheCriteres">
+        <div>
+            {{ form_label(form.usager) }}
+            {{ form_widget(form.usager, {'attr': {'onChange':'this.form.submit();'}}) }}
+        </div>
     </div>
-    
-        <br/>
+
     <table id="listeResultats">
         <thead>
             <tr>
@@ -37,7 +44,7 @@
                 <th>Categorie</th>
                 <th>Etat</th>
                 <th>Commentaire</th>
-                <th>A ajouter</th>
+                <th>Retour</th>
             </tr>
         </thead>
         <tbody>
@@ -48,8 +55,10 @@
                     <td>{{ p.article.categorie ? p.article.categorie.libelle }}</td>
                     <td>{{ p.article.etat ? p.article.etat.libelle }}</td>
                     <td>{{ p.article.commentaire }}</td>
-                    <td>
-                        <input type="checkbox" name="retour_pret_{{ p.id }}" value="{{ p.id }}"/>
+                    <td class="nowrap">
+                        <a href="javascript:alert('retourner');">
+                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-210-cart-out.png') }}" alt="Retourner" />
+                        </a>
                     </td>
                 </tr>
             {% else %}
@@ -57,49 +66,18 @@
             {% endfor %}
         </tbody>
     </table>
-        
-    <div>    
-        {{ form_label(form.dateRetour) }}
-        {{ form_widget(form.dateRetour) }}
+
+
+    <div class="error">
+        {{ form_errors(form.dateOperation) }}
     </div>
-    
-    <div id="projetRechercheCriteres">
-            <div>
-                {{ form_label(form.usager) }}
-                {{ form_widget(form.usager, {'attr': {'onChange':'this.form.submit();'}}) }}
-            </div>
+    <div id ="divRechercheBoutons">
+        {{ form_row(form.valider) }}
     </div>
-    
-    <table id="listeResultats">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Categorie</th>
-                <th>Etat</th>
-                <th>Commentaire</th>
-                <th>A enlever</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for p in prets %}
-                <tr>
-                    <td>{{ p.article.id }}</td>
-                    <td>{{ p.article.nom }}</td>
-                    <td>{{ p.article.categorie ? p.article.categorie.libelle }}</td>
-                    <td>{{ p.article.etat ? p.article.etat.libelle }}</td>
-                    <td>{{ p.article.commentaire }}</td>
-                    <td>
-                        <input type="checkbox" name="retour_pret_{{ p.id }}" value="{{ p.id }}"/>
-                    </td>
-                </tr>
-            {% else %}
-                <tr><td colspan="6">Aucun pret n'a été trouvé</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>#}
-    
-    {#{{ form_end(form) }}#}
+
+    {{ form_end(form) }}
+
 
 
 {% endblock %}
+
