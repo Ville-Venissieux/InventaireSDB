@@ -2,15 +2,33 @@
 
 {% block content %}
 
-    {{ form_start(form) }}
+    {#{{ form_start(form) }}
 
-    {{ form_errors(form) }}
+    {{ form_errors(form) }}#}
     
-    <div id="divRechercheArticles">
+    <table id="listeResultatsArticles">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Categorie</th>
+                <th>Année d'achat</th>
+                <th>Statut</th>
+                <th>Etat</th>
+                <th>Commentaire</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {# Géré par Ajax depuis le composant datatables #}
+        </tbody>
+    </table>
+    
+    {#<div id="divRechercheArticles">
         {{ form_widget(form.Recherche) }}
     </div>
     
-<br/>
+        <br/>
     <table id="listeResultats">
         <thead>
             <tr>
@@ -79,9 +97,9 @@
                 <tr><td colspan="6">Aucun pret n'a été trouvé</td></tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table>#}
     
-    {{ form_end(form) }}
+    {#{{ form_end(form) }}#}
 
 
 {% endblock %}

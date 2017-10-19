@@ -27,7 +27,7 @@ class RetoursSearchType extends AbstractType
                     return $er->createQueryBuilder('u')-> orderBy('u.nom','ASC');},
                 'choice_label' => 'nomComplet',
                 'expanded' => false,
-                'required' => false))
+                'required' => true))
             ->add('dateRetour',DateType::class, array('label'=>'Date du retour',
                 'input'=>'datetime',
                 'widget'=>'choice',
