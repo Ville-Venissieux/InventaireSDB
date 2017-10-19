@@ -19,13 +19,13 @@
         </div>
         
         <div>
-            {{ form_label(form.date_achat) }}
-            {{ form_widget(form.date_achat ,{'attr': {'class': 'dateSelect'}}) }}
+            {{ form_label(form.dateAchat) }}
+            {{ form_widget(form.dateAchat ,{'attr': {'class': 'dateSelect'}}) }}
         </div>
         
         <div>
-            {{ form_label(form.prix_achat) }}
-            {{ form_widget(form.prix_achat) }}
+            {{ form_label(form.prixAchat) }}
+            {{ form_widget(form.prixAchat) }}
         </div>
         
         <div>
@@ -51,8 +51,8 @@
         <div class="error">
             {{ form_errors(form.nom) }}
             {{ form_errors(form.categorie) }}
-            {{ form_errors(form.date_achat) }}
-            {{ form_errors(form.prix_achat) }}
+            {{ form_errors(form.dateAchat) }}
+            {{ form_errors(form.prixAchat) }}
             {{ form_errors(form.fournisseur) }}
             {#{{ form_errors(form.statut) }}#}
             {{ form_errors(form.etat) }}

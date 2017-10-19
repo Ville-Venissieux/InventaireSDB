@@ -28,47 +28,7 @@ class ArticleController extends Controller {
         $logger = $this->get('logger');
 
         try {
-
-            //réception de la requête dans l'objet formulaire
-           /* $form->handleRequest($request);
-
-            //Une recherche a été lancée
-            if ($form->isSubmitted()) {
-
-                $logger->info('Lancement d\'une recherche');
-
-                //Récupération des données du formulaire
-                $data = $form->getData();
-
-                //Construction de la requête de recherche en fonction des critères saisis
-                $qb = $em->createQueryBuilder();
-
-                $qb->select('a')
-                        ->from('VenissieuxInventaireSDBFrontBundle:Article', 'a')
-                        ->where('a.nom is not null ')
-                        ->orderBy('a.nom', 'ASC');
-
-
-                //Critère nom
-                if ($data['Recherche']) {
-                    $qb->andWhere('UPPER(a.nom) LIKE UPPER(:searchNom)')
-                       //->orWhere('UPPER(a.categorie) LIKE UPPER(:searchNom)')
-                       ->setParameter('searchNom', '%' . $data['Recherche'] . '%');
-                    $logger->info('critère article : ' . $data['Recherche']);
-                }
-                
-
-                //Lancement de la requête de recherche
-                $query = $qb->getQuery();
-                $articles = $query->getResult();
-            } else {
-                //On recherche tous les articles
-                $articles = $em->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->findBy(array(), array('nom'=>'ASC'));
-
-                $logger->info('Recherche de tous les articles');
-            }*/
-
-            //Affichage de la vue twig de liste des actions
+            //Affichage de la vue twig de liste des articles
             return $this->render('VenissieuxInventaireSDBFrontBundle:Article:lister.html.twig');
         } catch (Exception $e) {
             $request->getSession()->getFlashBag()->add('Erreur', 'Veuillez contacter votre administrateur');
@@ -133,8 +93,6 @@ class ArticleController extends Controller {
         }
     }
 
-    
-
     /**
      * Suppression d'un article
      * @param type $id
@@ -170,61 +128,69 @@ class ArticleController extends Controller {
             $logger->error($e->getMessage());
         }
     }
-    
-    
+
     /**
      * pagination de la liste des articles (AJAX)
      * @return Response JSON
      */
-    public function paginerAction(Request $request) 
-    { 
+    public function paginerAction(Request $request) {
+        
+//Appel du repository
+        $em = $this->container->get('doctrine')->getManager();
         $logger = $this->get('logger');
-        
-        
-        $length = $request->get('length'); 
-        $length = $length && ($length!=-1)?$length:0; 
- 
-        $start = $request->get('start'); 
-        $start = $length?($start && ($start!=-1)?$start:0)/$length:0; 
- 
-        $search = $request->get('search'); 
-        $filters = [ 
-            'query' => @$search['value'] 
-        ];
-        
-        $sortColumn=$request->get('columns')[$request->get('order')[0]['column']]['data'];
-        $sortDirection=$request->get('order')[0]['dir'];
- 
-        $articles = $this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search( 
-            $filters, $start, $length,$sortColumn, $sortDirection
-        ); 
-         
-        $output = array( 
-            'data' => array(), 
-            'recordsFiltered' => count($this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search($filters, 0, false)), 
-            'recordsTotal' => count($this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(array(), 0, false))
-        ); 
- 
-        foreach ($articles as $article) {
+
+        try {
+
+            //Récupération des paramètres de la requête HTTP
             
-            $logger->info('article ' . $article->getNom());
+            $length = $request->get('length');
+            $length = $length && ($length != -1) ? $length : 0;
+
+            $start = $request->get('start');
+            $start = $length ? ($start && ($start != -1) ? $start : 0) / $length : 0;
+
+            $search = $request->get('search');
+            $filters = [
+                'query' => @$search['value']
+            ];
+
+            $sortColumn = $request->get('columns')[$request->get('order')[0]['column']]['data'];
+            $sortDirection = $request->get('order')[0]['dir'];
+
+            //Lancement de la recherche
+            $articles = $this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(
+                    $filters, $start, $length, $sortColumn, $sortDirection
+            );
+
+            //Création du tableau de données nécessaire pour la réponse HTTP
+            $output = array(
+                'data' => array(),
+                'recordsFiltered' => count($this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search($filters, 0, false)),
+                'recordsTotal' => count($this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(array(), 0, false))
+            );
+
+            foreach ($articles as $article) {
+
+                $logger->info('article ' . $article->getNom());
+
+
+                $output['data'][] = [
+                    'id' => $article->getId(),
+                    'nom' => $article->getNom(),
+                    'categorie' => is_null($article->getCategorie()) ? '' : $article->getCategorie()->getLibelle(),
+                    'dateAchat' => is_null($article->getDateAchat()) ? '' : $article->getDateAchat()->format('Y'),
+                    'statut' => $article->getStatut(),
+                    'etat' => is_null($article->getEtat()) ? '' : $article->getEtat()->getLibelle(),
+                    'commentaire' => mb_strimwidth($article->getCommentaire(), 0, 50, "...")
+                ];
+            }
+
+            return new Response(json_encode($output), 200, ['Content-Type' => 'application/json']);
             
-            
-            $output['data'][] = [ 
-                'id' => $article->getId(), 
-                'nom' => $article->getNom(),
-                'categorie' => is_null($article->getCategorie())?'':$article->getCategorie()->getLibelle(),
-                'date_achat' => is_null($article->getDateAchat())?'':$article->getDateAchat()->format('Y'),
-                'statut' => $article->getStatut(),
-                'etat' => is_null($article->getEtat())?'':$article->getEtat()->getLibelle(),
-                'commentaire' => mb_strimwidth($article->getCommentaire(),0,50,"...")
-            ]; 
-        } 
- 
-        return new Response(json_encode($output), 200, ['Content-Type' => 'application/json']); 
-    } 
-    
-    
-    
+        } catch (Exception $e) {
+            $request->getSession()->getFlashBag()->add('Erreur', 'Veuillez contacter votre administrateur');
+            $logger->error($e->getMessage());
+        }
+    }
 
 }

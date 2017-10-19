@@ -5,15 +5,15 @@
     {{ form_start(form) }}
 
     {{ form_errors(form) }}
-    
-    
-    <div id="projetRechercheCriteres">
-            <div>
-                {{ form_label(form.usager) }}
-                {{ form_widget(form.usager, {'attr': {'onChange':'this.form.submit();'}}) }}
-            </div>
+
+
+    <div id="divRechercheCriteres">
+        <div>
+            {{ form_label(form.usager) }}
+            {{ form_widget(form.usager, {'attr': {'onChange':'this.form.submit();'}}) }}
+        </div>
     </div>
-<br/>
+    <br/>
     <table id="listeResultats">
         <thead>
             <tr>
@@ -42,13 +42,20 @@
             {% endfor %}
         </tbody>
     </table>
-        
-    <div>    
+
+    <div class='ligneFormulaireType3'>    
         {{ form_label(form.dateRetour) }}
         {{ form_widget(form.dateRetour) }}
     </div>
+    <div class="error">
+            {{ form_errors(form.dateRetour) }}
+    </div>
+    <div id ="divRechercheBoutons">
+        {{ form_row(form.valider) }}
+    </div>
     
     {{ form_end(form) }}
+
 
 
 {% endblock %}

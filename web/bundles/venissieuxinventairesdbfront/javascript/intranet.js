@@ -10,13 +10,13 @@ $(document).ready(function () {
         sAjaxDataProp: "data",
         pageLength: 10,
         columns: [
-            {"data": "id"},
-            {"data": "nom"},
-            {"data": "categorie"},
-            {"data": "date_achat"},
-            {"data": "statut"},
-            {"data": "etat"},
-            {"data": "commentaire"},
+            {"data": "id", "orderable": true},
+            {"data": "nom", "orderable": true},
+            {"data": "categorie", "orderable": false},
+            {"data": "dateAchat", "orderable": true},
+            {"data": "statut", "orderable": false},
+            {"data": "etat", "orderable": false},
+            {"data": "commentaire", "orderable": false},
             {
              "render": function (data, type, row) { return '<a href=\"/InventaireSDB/web/app_dev.php/front/article/editer/'+row.id+'\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-31-pencil.png\" alt=\"Modifier\" /></a>&nbsp;<a href=\"/InventaireSDB/web/app_dev.php/front/article/supprimer/'+row.id+'\" onclick=\"if (window.confirm(\'Voulez-vous vraiment supprimer les données concernant l\\\'article '+row.nom+'?\')) {return true;} else {return false;}\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-17-bin.png\" alt=\"Supprimer\" /></a>'; }
             }

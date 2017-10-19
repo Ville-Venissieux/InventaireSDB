@@ -371,8 +371,8 @@ button, input[type=submit]
 /*Formulaire avec label textbox et combobox*/
 .ligneFormulaireType3 input[type=text]
 {
-    display: inline-block;
     width: 260px;
+    display: inline-block;
     vertical-align: middle;
 }
 
@@ -382,6 +382,11 @@ button, input[type=submit]
     display: inline-block;
     width: 115px;
     vertical-align: middle;
+}
+
+.ligneFormulaireType3 div
+{
+    display: inline-block;
 }
 
 
