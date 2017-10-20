@@ -42,7 +42,8 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository {
                     ->setMaxResults($max)
                     ->setFirstResult($page * $max)
             ;
-        } else {
+        } 
+        else {
             $preparedQuery = $qb->getQuery();
         }
 

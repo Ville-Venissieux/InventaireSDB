@@ -182,7 +182,6 @@ class PretsController extends Controller
                     'id' => $article->getId(),
                     'nom' => $article->getNom(),
                     'categorie' => is_null($article->getCategorie()) ? '' : $article->getCategorie()->getLibelle(),
-                    'dateAchat' => is_null($article->getDateAchat()) ? '' : $article->getDateAchat()->format('Y'),
                     'etat' => is_null($article->getEtat()) ? '' : $article->getEtat()->getLibelle(),
                     'commentaire' => mb_strimwidth($article->getCommentaire(), 0, 50, "...")
                 ];

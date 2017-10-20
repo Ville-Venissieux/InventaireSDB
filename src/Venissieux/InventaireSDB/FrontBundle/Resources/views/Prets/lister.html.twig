@@ -18,7 +18,6 @@
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Categorie</th>
-                <th>Année d'achat</th>
                 <th>Etat</th>
                 <th>Commentaire</th>
                 <th></th>
@@ -36,7 +35,7 @@
         </div>
     </div>
 
-    <table id="listeResultats">
+    <table id="listeResultatsArticlesEmprunts">
         <thead>
             <tr>
                 <th>ID</th>
@@ -56,8 +55,8 @@
                     <td>{{ p.article.etat ? p.article.etat.libelle }}</td>
                     <td>{{ p.article.commentaire }}</td>
                     <td class="nowrap">
-                        <a href="javascript:alert('retourner');">
-                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-210-cart-out.png') }}" alt="Retourner" />
+                        <a href="javascript:">
+                            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-210-cart-out.png') }}" class="TransferArticle" alt="Retourner" />
                         </a>
                     </td>
                 </tr>

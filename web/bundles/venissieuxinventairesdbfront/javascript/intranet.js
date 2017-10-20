@@ -1,5 +1,7 @@
 //Concerne l'affichage de la liste des articles
 $(document).ready(function () {
+    
+    
     $('#listeResultatsArticles').DataTable({
         //Afficher le champ de recherche
         searching: true,
@@ -57,7 +59,7 @@ $(document).ready(function () {
     
     //Force une taille minimum permettant l'affichage de la barre de chargement
     $('#listeResultatsArticles_wrapper').css('min-height', '500px'); 
-});
+
 
 
 
@@ -65,8 +67,7 @@ $(document).ready(function () {
 
 
 //Concerne l'affichage de la liste des  pour les prêts
-$(document).ready(function () {
-    $('#listeResultatsArticlesPrets').DataTable({
+var listeResultatsArticlesPretsTable = $('#listeResultatsArticlesPrets').DataTable({
         //Afficher le champ de recherche
         searching: true,
         //Ne pas afficher le nombre de lignes par page
@@ -83,11 +84,10 @@ $(document).ready(function () {
             {"data": "id", "orderable": true},
             {"data": "nom", "orderable": true},
             {"data": "categorie", "orderable": false},
-            {"data": "dateAchat", "orderable": true},
             {"data": "etat", "orderable": false},
             {"data": "commentaire", "orderable": false},
             {
-             "render": function (data, type, row) { return '<a href=\"javascript:if (window.confirm(\'Voulez-vous vraiment supprimer les données concernant l\\\'article '+row.nom+'?\')) {return true;} else {return false;}\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-209-cart-in.png\" alt=\"Emprunter\" /></a>'; }
+             "render": function (data, type, row) { return '<a href=\"\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-209-cart-in.png\" class="TransferEmprunt" alt=\"Emprunter\" /></a>'; }
             }
         ],
 
@@ -122,12 +122,26 @@ $(document).ready(function () {
     
     //Force une taille minimum permettant l'affichage de la barre de chargement
     $('#listeResultatsArticlesPrets_wrapper').css('min-height', '500px'); 
+    
+    
+
+ //Déplacer une ligne de la table des articles(listeResultatsArticlesPrets) vers la table des emprunts(listeResultatsArticlesEmprunts)
+$('#listeResultatsArticlesPrets tbody').on( 'click', 'img.TransferEmprunt', function () {
+    var row = listeResultatsArticlesPretsTable.row( $(this).parents('tr') );
+    var rowNode = row.node();
+    alert(row.id);
+    row.remove().draw();
+ 
+   // table2
+    //    .row.add( rowNode )
+    //    .draw();
 });
 
 
+
 //Concerne l'affichage de la liste des articles empruntés
-$(document).ready(function () {
-    $('#listeResultatsArticlesEmprunts').DataTable({
+
+    var listeResultatsArticlesEmpruntsTable = $('#listeResultatsArticlesEmprunts').DataTable({
         //Afficher le champ de recherche
         searching: false,
         //Ne pas afficher le nombre de lignes par page
@@ -158,6 +172,19 @@ $(document).ready(function () {
             }
         }
     });
+    
+//Déplacer une ligne de la table des emprunts(listeResultatsArticlesEmprunts) vers la table des articles(listeResultatsArticlesPrets)
+$('#listeResultatsArticlesEmprunts tbody').on( 'click', 'img.TransferArticle', function () {
+    var row = listeResultatsArticlesEmpruntsTable.row( $(this).parents('tr') );
+    var rowNode = row.node();
+    row.remove().draw();
+ 
+   // table2
+    //    .row.add( rowNode )
+    //    .draw();
+});    
+    
+    
 });
 
 
