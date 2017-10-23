@@ -10,13 +10,29 @@ namespace Venissieux\InventaireSDB\FrontBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function search($data, $page = 0, $max = NULL, $sortColumn = null, $sortDirection = null, $getResult = true) {
+    public function search($data, $page = 0, $max = NULL, $sortColumn = null, $sortDirection = null, $disponibleOnly = false, $getResult = true) {
         $qb = $this->_em->createQueryBuilder();
         $query = isset($data['query']) && $data['query'] ? $data['query'] : null;
 
         $qb
                 ->select('a')
                 ->from('VenissieuxInventaireSDBFrontBundle:Article', 'a');
+        
+        
+        //Dans le cas des articles disponibles (aucune occurence de prets avec une date de retour vide)
+        if ($disponibleOnly)
+        {
+            $sub = $this->_em->createQueryBuilder();
+            $sub->select('p');
+            $sub->from('VenissieuxInventaireSDBFrontBundle:Pret','p');
+            $sub->andWhere('p.article = a');
+            $sub->andWhere('p.dateRetour is null');
+            
+            //Ajout de la condition (imbrication de la sous requête exists avec la requête initiale)
+            $qb->andWhere($qb->expr()->not($qb->expr()->exists($sub->getDQL())));
+       
+        }
+        
 
         //On ajoute un tri si demandé
         if (isset($sortColumn) && isset($sortDirection)) {

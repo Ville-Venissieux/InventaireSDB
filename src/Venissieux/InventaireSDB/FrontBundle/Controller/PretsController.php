@@ -161,9 +161,9 @@ class PretsController extends Controller
             $sortColumn = $request->get('columns')[$request->get('order')[0]['column']]['data'];
             $sortDirection = $request->get('order')[0]['dir'];
 
-            //Lancement de la recherche
+            //Lancement de la recherche pour les articles disponibles
             $articles = $this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(
-                    $filters, $start, $length, $sortColumn, $sortDirection
+                    $filters, $start, $length, $sortColumn, $sortDirection,true
             );
 
             //Création du tableau de données nécessaire pour la réponse HTTP
