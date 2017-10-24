@@ -1,7 +1,7 @@
 //Concerne l'affichage de la liste des articles
 $(document).ready(function () {
-    
-    
+
+
     $('#listeResultatsArticles').DataTable({
         //Afficher le champ de recherche
         searching: true,
@@ -24,7 +24,9 @@ $(document).ready(function () {
             {"data": "etat", "orderable": false},
             {"data": "commentaire", "orderable": false},
             {
-             "render": function (data, type, row) { return '<a href=\"/InventaireSDB/web/app_dev.php/front/article/editer/'+row.id+'\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-31-pencil.png\" alt=\"Modifier\" /></a>&nbsp;<a href=\"/InventaireSDB/web/app_dev.php/front/article/supprimer/'+row.id+'\" onclick=\"if (window.confirm(\'Voulez-vous vraiment supprimer les données concernant l\\\'article '+row.nom+'?\')) {return true;} else {return false;}\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-17-bin.png\" alt=\"Supprimer\" /></a>'; }
+                "render": function (data, type, row) {
+                    return '<a href=\"/InventaireSDB/web/app_dev.php/front/article/editer/' + row.id + '\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-31-pencil.png\" alt=\"Modifier\" /></a>&nbsp;<a href=\"/InventaireSDB/web/app_dev.php/front/article/supprimer/' + row.id + '\" onclick=\"if (window.confirm(\'Voulez-vous vraiment supprimer les données concernant l\\\'article ' + row.nom + '?\')) {return true;} else {return false;}\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-17-bin.png\" alt=\"Supprimer\" /></a>';
+                }
             }
         ],
 
@@ -55,10 +57,10 @@ $(document).ready(function () {
             {orderable: false, targets: -1}
         ]
     });
-    
-    
+
+
     //Force une taille minimum permettant l'affichage de la barre de chargement
-    $('#listeResultatsArticles_wrapper').css('min-height', '500px'); 
+    $('#listeResultatsArticles_wrapper').css('min-height', '500px');
 
 
 
@@ -66,8 +68,8 @@ $(document).ready(function () {
 
 
 
-//Concerne l'affichage de la liste des  pour les prêts
-var listeResultatsArticlesPretsTable = $('#listeResultatsArticlesPrets').DataTable({
+    //Concerne l'affichage de la liste des  pour les prêts
+    var listeResultatsArticlesPretsTable = $('#listeResultatsArticlesPrets').DataTable({
         //Afficher le champ de recherche
         searching: true,
         //Ne pas afficher le nombre de lignes par page
@@ -75,7 +77,12 @@ var listeResultatsArticlesPretsTable = $('#listeResultatsArticlesPrets').DataTab
         processing: true,
         //mode AJAX
         serverSide: true,
-        ajax: "./paginer",
+        ajax: {
+            "url": "./paginer",
+            "data": function (d) {
+                d.articlesEmpruntes = $('#hidListeResultatsArticlesEmprunts').val();
+            }
+        },
         sAjaxDataProp: "data",
         //pagination
         pageLength: 10,
@@ -87,7 +94,9 @@ var listeResultatsArticlesPretsTable = $('#listeResultatsArticlesPrets').DataTab
             {"data": "etat", "orderable": false},
             {"data": "commentaire", "orderable": false},
             {
-             "render": function (data, type, row) { return '<a href=\"\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-209-cart-in.png\" class="TransferEmprunt" alt=\"Emprunter\" /></a>'; }
+                "render": function (data, type, row) {
+                    return '<a href=\"javascript:\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-209-cart-in.png\" class="TransferEmprunt" alt=\"Emprunter\" /></a>';
+                }
             }
         ],
 
@@ -119,34 +128,31 @@ var listeResultatsArticlesPretsTable = $('#listeResultatsArticlesPrets').DataTab
         ]
     });
     
-    
-    //Force une taille minimum permettant l'affichage de la barre de chargement
-    $('#listeResultatsArticlesPrets_wrapper').css('min-height', '500px'); 
-    
-    
 
- //Déplacer une ligne de la table des articles(listeResultatsArticlesPrets) vers la table des emprunts(listeResultatsArticlesEmprunts)
-$('#listeResultatsArticlesPrets tbody').on( 'click', 'img.TransferEmprunt', function () {
-    var row = listeResultatsArticlesPretsTable.row( $(this).parents('tr') );
-    var rowNode = row.node();
-    alert(row.id);
-    row.remove().draw();
- 
-   // table2
-    //    .row.add( rowNode )
-    //    .draw();
-});
-
-
-
-//Concerne l'affichage de la liste des articles empruntés
-
+    //Concerne l'affichage de la liste des articles empruntés
     var listeResultatsArticlesEmpruntsTable = $('#listeResultatsArticlesEmprunts').DataTable({
         //Afficher le champ de recherche
         searching: false,
         //Ne pas afficher le nombre de lignes par page
         bLengthChange: false,
         processing: true,
+
+        //Supression de la pagination
+        bPaginate: false,
+
+        //Définition des colonnes
+        columns: [
+            {"data": "id", "orderable": true},
+            {"data": "nom", "orderable": true},
+            {"data": "categorie", "orderable": false},
+            {"data": "etat", "orderable": false},
+            {"data": "commentaire", "orderable": false},
+            {
+                "render": function (data, type, row) {
+                    return '<a href=\"javascript:\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-210-cart-out.png\" class="TransferArticle" alt=\"Retourner\" /></a>';
+                }
+            }
+        ],
 
         //Affichage des messages en français
         language: {
@@ -170,21 +176,73 @@ $('#listeResultatsArticlesPrets tbody').on( 'click', 'img.TransferEmprunt', func
                 sortAscending: ": activer pour trier la colonne par ordre croissant",
                 sortDescending: ": activer pour trier la colonne par ordre décroissant"
             }
-        }
+        },
+        columnDefs: [
+            {orderable: false, targets: -1}
+        ]
+
     });
     
+
+    //Initialise la valeur du champ caché contenant  les emprunts
+    listeResultatsArticlesEmpruntsTable.rows().every(function (rowIdx, tableLoop, rowLoop) {
+        var data = this.data();
+        $('#hidListeResultatsArticlesEmprunts').val($('#hidListeResultatsArticlesEmprunts').val() + data.id + ';');
+    });
+
+
+    //Force une taille minimum permettant l'affichage de la barre de chargement
+    $('#listeResultatsArticlesPrets_wrapper').css('min-height', '500px');
+
+
+
+
+
 //Déplacer une ligne de la table des emprunts(listeResultatsArticlesEmprunts) vers la table des articles(listeResultatsArticlesPrets)
-$('#listeResultatsArticlesEmprunts tbody').on( 'click', 'img.TransferArticle', function () {
-    var row = listeResultatsArticlesEmpruntsTable.row( $(this).parents('tr') );
-    var rowNode = row.node();
-    row.remove().draw();
- 
-   // table2
-    //    .row.add( rowNode )
-    //    .draw();
-});    
-    
-    
+    $('#listeResultatsArticlesEmprunts tbody').on('click', 'img.TransferArticle', function () {
+        var row = listeResultatsArticlesEmpruntsTable.row($(this).parents('tr'));
+        var rowNode = row.node();
+
+
+
+        //On retire l'id de l'article du champ caché
+        var hidEmpruntsValue = $('#hidListeResultatsArticlesEmprunts').val();
+
+        if (hidEmpruntsValue.indexOf(';' + row.data().id + ';') > -1)
+        {
+            $('#hidListeResultatsArticlesEmprunts').val(hidEmpruntsValue.replace(';' + row.data().id + ';', ';'));
+        } else
+        {
+            $('#hidListeResultatsArticlesEmprunts').val(hidEmpruntsValue.replace(row.data().id + ';', ''));
+        }
+
+
+        //Suppression de la ligne dans la liste initiale
+        row.remove().draw();
+
+
+    });
+
+
+//Déplacer une ligne de la table des articles(listeResultatsArticlesPrets) vers la table des emprunts(listeResultatsArticlesEmprunts)
+    $('#listeResultatsArticlesPrets tbody').on('click', 'img.TransferEmprunt', function () {
+        var row = listeResultatsArticlesPretsTable.row($(this).parents('tr'));
+        var rowNode = row.node();
+
+        //On enregistre l'id de l'article concerné dans un champ caché
+        $('#hidListeResultatsArticlesEmprunts').val($('#hidListeResultatsArticlesEmprunts').val() + row.data().id + ';');
+
+        //Suppression de la ligne dans la liste initiale
+        row.remove();
+
+        //Ajout de la ligne dans la liste de destination
+        listeResultatsArticlesEmpruntsTable
+                .row.add(rowNode)
+                .draw();
+
+    });
+
+
 });
 
 

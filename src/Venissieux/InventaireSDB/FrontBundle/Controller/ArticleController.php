@@ -159,7 +159,7 @@ class ArticleController extends Controller {
 
             //Lancement de la recherche
             $articles = $this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(
-                    $filters, $start, $length, $sortColumn, $sortDirection,false
+                    $filters, $start, $length, $sortColumn, $sortDirection,false,null
             );
 
             //Création du tableau de données nécessaire pour la réponse HTTP

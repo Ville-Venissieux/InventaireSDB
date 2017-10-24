@@ -34,6 +34,10 @@
             {{ form_widget(form.usager, {'attr': {'onChange':'this.form.submit();'}}) }}
         </div>
     </div>
+        
+        
+    {# Champ caché permettant de stocker les id des articles sélectionnés dans la liste listeResultatsArticlesEmprunts#}    
+    <input type="hidden" name="hidListeResultatsArticlesEmprunts" id="hidListeResultatsArticlesEmprunts">     
 
     <table id="listeResultatsArticlesEmprunts">
         <thead>
@@ -43,7 +47,7 @@
                 <th>Categorie</th>
                 <th>Etat</th>
                 <th>Commentaire</th>
-                <th>Retour</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -60,8 +64,8 @@
                         </a>
                     </td>
                 </tr>
-            {% else %}
-                <tr><td colspan="6">Aucun pret n'a été trouvé</td></tr>
+            {#{% else %}
+                <tr><td colspan="6">Aucun pret n'a été trouvé</td></tr>#}
             {% endfor %}
         </tbody>
     </table>
