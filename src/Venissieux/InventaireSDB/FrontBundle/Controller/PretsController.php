@@ -6,6 +6,7 @@ use Venissieux\InventaireSDB\FrontBundle\Form\PretType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Venissieux\InventaireSDB\FrontBundle\Entity\Pret;
 
 /**
  * Controleur lié aux prêts
@@ -25,96 +26,96 @@ class PretsController extends Controller {
         $logger = $this->get('logger');
 
 
-
-        //Création du formulaire
-        $form = $this->createForm(PretType::class);
-
-        //réception de la requête dans l'objet formulaire
-        $form->handleRequest($request);
-
-        //Recherche des prêts concernant l'usager sélectionné
-        $logger->info('Lancement d\'une recherche des prets');
-
-        //Soumission du formulaire : En cas de recherche de prets à partir d'un nom (cas 1) ou d'une validation des retours (cas 2)
-        if ($form->isSubmitted()) {
-            //Récupération des données du formulaire
-            $data = $form->getData();
-        } else {
-            //Premier affichage
-            $usager = $em->getRepository('VenissieuxInventaireSDBFrontBundle:Usager')->findOneBy(array(), array('nom' => 'ASC'));
-            $form->get('usager')->setData($usager);
-            $data['usager'] = $usager;
-        }
-
-
-        //Construction de la requête de recherche en fonction des critères saisis
-        $qb = $em->createQueryBuilder();
-
-        if ($data['usager']) {
-            $qb->select('p')
-                    ->from('VenissieuxInventaireSDBFrontBundle:Pret', 'p')
-                    ->orderBy('p.datePret', 'ASC');
-            $qb->andWhere('p.dateRetour is null');
-            $qb->andWhere('p.usager = :idUsager')
-                    ->setParameter('idUsager', $data['usager']->getId());
-
-            $logger->info('critère idUsager : ' . $data['usager']->getId());
-        }
-
-
-
-        //cas 2 : validation des prêts / retours
-        if ($form->get('valider')->isClicked() && $form->isValid()) {
-
-
-            dump($request->request->all());
-
-//                $logger->info('Validation des retours');
-//
-//                //On récupère la date de retour
-//                $dateRetour = $data['dateRetour'];
-//
-//                $logger->info('Date de retour : ' . $dateRetour->format('Y-m-d'));
-//
-//                //Récupération de tous les paramètres de la requête HTTP pour déterminer les cases cochées
-//                foreach ($request->request->all() as $keyParametreRetour => $valueParametreRetour) {
-//
-//                    //On vérifie que le paramètre de retour correspond à une case à cocher
-//                    if (substr($keyParametreRetour, 0, 12) == 'retour_pret_') {
-//
-//                        //Récupération de l'id du prêt concerné
-//                        $idPret = $valueParametreRetour;
-//
-//                        $logger->info('Id du prêt concerné : ' . $idPret);
-//
-//                        if (isset($idPret)) {
-//
-//                            // modification d'un prêt existant : on récupère les données en BDD
-//                            $pret = $em->find('VenissieuxInventaireSDBFrontBundle:Pret', $idPret);
-//
-//                            //Déclenchement d'une exception si le prêt n'existe pas
-//                            if (!$pret) {
-//                                throw new NotFoundHttpException("Prêt non trouvé");
-//                            }
-//
-//                            //Mise à jour de la date de retour
-//                            $pret->setDateRetour($dateRetour);
-//
-//                            //Enregistrement en BDD
-//                            $em->persist($pret);
-//                            $em->flush();
-//
-//                            $logger->info('Enregistrement du retour : ' . $idPret);
-//                        }
-//                    }
-//                }
-        }
-
-        //Lancement de la requête de recherche
-        $query = $qb->getQuery();
-        $prets = $query->getResult();
-
         try {
+            //Création du formulaire
+            $form = $this->createForm(PretType::class);
+
+            //réception de la requête dans l'objet formulaire
+            $form->handleRequest($request);
+
+            //Recherche des prêts concernant l'usager sélectionné
+            $logger->info('Lancement d\'une recherche des prets');
+
+            //Soumission du formulaire : En cas de recherche de prets à partir d'un nom (cas 1) ou d'une validation des retours (cas 2)
+            if ($form->isSubmitted()) {
+                //Récupération des données du formulaire
+                $data = $form->getData();
+            } else {
+                //Premier affichage
+                $usager = $em->getRepository('VenissieuxInventaireSDBFrontBundle:Usager')->findOneBy(array(), array('nom' => 'ASC'));
+                $form->get('usager')->setData($usager);
+                $data['usager'] = $usager;
+            }
+
+
+            //Construction de la requête de recherche en fonction des critères saisis
+            $qb = $em->createQueryBuilder();
+
+            if ($data['usager']) {
+                $qb->select('p')
+                        ->from('VenissieuxInventaireSDBFrontBundle:Pret', 'p')
+                        ->orderBy('p.datePret', 'ASC');
+                $qb->andWhere('p.dateRetour is null');
+                $qb->andWhere('p.usager = :idUsager')
+                        ->setParameter('idUsager', $data['usager']->getId());
+
+                $logger->info('critère idUsager : ' . $data['usager']->getId());
+            }
+            //Lancement de la requête de recherche
+            $query = $qb->getQuery();
+            $prets = $query->getResult();
+
+
+
+            //cas 2 : validation des prêts / retours
+            if ($form->get('valider')->isClicked() && $form->isValid()) {
+                //$IDListeApres représente la liste des ID d'articles liés à un usager qui ont été modifiés par un utilisateur
+                //$IDListeAvant représente la liste des ID d'articles liés à un usager avant qu'ils n'aient été modifié par un utilisateur
+                //Récupération des choix de l'utilisateur
+                $IDListeApres = explode(";", $request->request->all()["hidListeResultatsArticlesEmprunts"], -1);
+
+                //Récupération des prêts avant modification
+                $IDListeAvant = "";
+                foreach ($prets as $IDAvant) {
+                    $IDListeAvant = $IDListeAvant . StrVal($IDAvant->getArticle()->getId()) . ";";
+                }
+                $IDListeAvant = explode(";", $IDListeAvant, -1);
+
+                //Récupération de la date de prêt et de l'usager
+                $datePret = $data['dateOperation'];
+                $usagerPret = $data['usager'];
+
+                //Traitement des changements dans la BDD
+                //Traitement des nouveaux prêts
+                foreach ($IDListeApres as $IDApres) {
+                    if (!in_array($IDApres, $IDListeAvant)) {
+                        intval($IDApres);
+                        $ajouterpret = new Pret();
+                        $ajouterpret->setDatePret($datePret);
+                        $ajouterpret->setUsager($usagerPret);
+                        $article = $em->find('VenissieuxInventaireSDBFrontBundle:Article', $IDApres);
+                        $ajouterpret->setArticle($article);
+                        $em->persist($ajouterpret);
+                        $em->flush();
+                    }
+                }
+                //Traitement des retours
+                foreach ($IDListeAvant as $IDAvant) {
+                    if (!in_array($IDAvant, $IDListeApres)) {
+                        $editerpret = $em->getRepository('VenissieuxInventaireSDBFrontBundle:Pret')->findOneBy(array('article' => $IDAvant, 'dateRetour' => NULL));
+                        $editerpret->setDateRetour($data['dateOperation']);
+                        $em->persist($editerpret);
+                        $em->flush();
+                    }
+                }
+            }
+
+            //Lancement de la requête de recherche
+            $query = $qb->getQuery();
+            $prets = $query->getResult();
+
+
+
             //Affichage de la vue twig de liste des prets
             return $this->render('VenissieuxInventaireSDBFrontBundle:Prets:lister.html.twig', array('form' => $form->createView(), 'prets' => $prets));
         } catch (Exception $e) {
@@ -150,9 +151,9 @@ class PretsController extends Controller {
 
             //Récupération des id des articles empruntés depuis le champ caché
             $listeArticlesEmpruntes = null;
-            $articlesEmpruntes = rtrim($request->get('articlesEmpruntes'), ';');
+            $articlesEmpruntes = $request->get('articlesEmpruntes');
             if (!empty($articlesEmpruntes)) {
-                $listeArticlesEmpruntes = explode(';', $articlesEmpruntes);
+                $listeArticlesEmpruntes = explode(';', $articlesEmpruntes,-1);
             }
 
             $sortColumn = $request->get('columns')[$request->get('order')[0]['column']]['data'];
