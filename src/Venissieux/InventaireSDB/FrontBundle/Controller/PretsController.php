@@ -150,18 +150,32 @@ class PretsController extends Controller {
             ];
 
             //Récupération des id des articles empruntés depuis le champ caché
-            $listeArticlesEmpruntes = null;
+            $listeArticlesEmpruntes = array();
             $articlesEmpruntes = $request->get('articlesEmpruntes');
             if (!empty($articlesEmpruntes)) {
-                $listeArticlesEmpruntes = explode(';', $articlesEmpruntes,-1);
+                $listeArticlesEmpruntes = explode(';', $articlesEmpruntes, -1);
             }
 
+
+            //Récupération des id des articles empruntés initialement depuis le champ caché puis détermination des articles retournés
+            $listeArticlesRetournes = array();
+            $articlesEmpruntesInitiaux = $request->get('articlesEmpruntesInitiaux');
+            if (!empty($articlesEmpruntesInitiaux)) {
+                $listeArticlesEmpruntesInitiaux = explode(';', $articlesEmpruntesInitiaux, -1);
+                //Comparaison avec la liste des articles empruntés pour déterminer les articles initiaux retournés
+                foreach ($listeArticlesEmpruntesInitiaux as $articleEmprunteInitial) {
+                    if (!in_array($articleEmprunteInitial, $listeArticlesEmpruntes)) {
+                        array_push($listeArticlesRetournes,$articleEmprunteInitial);
+                    }
+                }
+            }
+            
             $sortColumn = $request->get('columns')[$request->get('order')[0]['column']]['data'];
             $sortDirection = $request->get('order')[0]['dir'];
 
             //Lancement de la recherche pour les articles disponibles
             $articles = $this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(
-                    $filters, $start, $length, $sortColumn, $sortDirection, true, $listeArticlesEmpruntes
+                    $filters, $start, $length, $sortColumn, $sortDirection, true, $listeArticlesEmpruntes,$listeArticlesRetournes
             );
 
             //Création du tableau de données nécessaire pour la réponse HTTP

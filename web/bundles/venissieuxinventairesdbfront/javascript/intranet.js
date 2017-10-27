@@ -81,6 +81,7 @@ $(document).ready(function () {
             "url": "./paginer",
             "data": function (d) {
                 d.articlesEmpruntes = $('#hidListeResultatsArticlesEmprunts').val();
+                d.articlesEmpruntesInitiaux = $('#hidListeResultatsArticlesInitiaux').val();
             }
         },
         sAjaxDataProp: "data",
@@ -110,8 +111,8 @@ $(document).ready(function () {
             infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
             infoPostFix: "",
             loadingRecords: "Chargement en cours...",
-            zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
-            emptyTable: "Aucune donnée disponible dans le tableau",
+            zeroRecords: "Aucun article disponible",
+            emptyTable: "Aucun article disponible",
             paginate: {
                 first: "Premier",
                 previous: "Pr&eacute;c&eacute;dent",
@@ -164,8 +165,8 @@ $(document).ready(function () {
             infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
             infoPostFix: "",
             loadingRecords: "Chargement en cours...",
-            zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
-            emptyTable: "Aucune donnée disponible dans le tableau",
+            zeroRecords: "Aucun article en prêt",
+            emptyTable: "Aucun article en prêt",
             paginate: {
                 first: "Premier",
                 previous: "Pr&eacute;c&eacute;dent",
@@ -188,6 +189,7 @@ $(document).ready(function () {
     listeResultatsArticlesEmpruntsTable.rows().every(function (rowIdx, tableLoop, rowLoop) {
         var data = this.data();
         $('#hidListeResultatsArticlesEmprunts').val($('#hidListeResultatsArticlesEmprunts').val() + data.id + ';');
+        $('#hidListeResultatsArticlesInitiaux').val($('#hidListeResultatsArticlesInitiaux').val() + data.id + ';');
     });
 
 
@@ -219,6 +221,9 @@ $(document).ready(function () {
 
         //Suppression de la ligne dans la liste initiale
         row.remove().draw();
+        
+        //Réaffichage de la liste des articles en conservant la pagination
+        listeResultatsArticlesPretsTable.draw(false);
 
 
     });
@@ -239,20 +244,13 @@ $(document).ready(function () {
         listeResultatsArticlesEmpruntsTable
                 .row.add(rowNode)
                 .draw();
+        
+        //Réaffichage de la liste des articles en conservant la pagination
+        listeResultatsArticlesPretsTable.draw(false);
 
     });
 
 
 });
-
-
-
-
-
-
-
-
-
-
 
 

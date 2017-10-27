@@ -37,7 +37,10 @@
         
         
     {# Champ caché permettant de stocker les id des articles sélectionnés dans la liste listeResultatsArticlesEmprunts#}    
-    <input type="hidden" name="hidListeResultatsArticlesEmprunts" id="hidListeResultatsArticlesEmprunts">     
+    <input type="hidden" name="hidListeResultatsArticlesEmprunts" id="hidListeResultatsArticlesEmprunts">
+    
+    {# Champ caché permettant de stocker les id des articles initiaux de la liste listeResultatsArticlesEmprunts#}    
+    <input type="hidden" name="hidListeResultatsArticlesInitiaux" id="hidListeResultatsArticlesInitiaux">
 
     <table id="listeResultatsArticlesEmprunts">
         <thead>
@@ -64,8 +67,6 @@
                         </a>
                     </td>
                 </tr>
-            {#{% else %}
-                <tr><td colspan="6">Aucun pret n'a été trouvé</td></tr>#}
             {% endfor %}
         </tbody>
     </table>

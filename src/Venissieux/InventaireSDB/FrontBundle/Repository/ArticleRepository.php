@@ -10,7 +10,7 @@ namespace Venissieux\InventaireSDB\FrontBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function search($data, $page = 0, $max = NULL, $sortColumn = null, $sortDirection = null, $disponibleOnly = false,$listeArticlesAExclure = null, $getResult = true) {
+    public function search($data, $page = 0, $max = NULL, $sortColumn = null, $sortDirection = null, $disponibleOnly = false,$listeArticlesAExclure = null,$listeArticlesAInclure = null, $getResult = true) {
         $qb = $this->_em->createQueryBuilder();
         $query = isset($data['query']) && $data['query'] ? $data['query'] : null;
 
@@ -33,18 +33,28 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository {
        
         }
         
+        //Dans le cas d'articles à exclure création d'une clause NOT IN
+        if (!empty($listeArticlesAExclure))
+        {
+            $qb->andWhere('a.id NOT IN (:listeArticlesAExclure)')
+            ->setParameter('listeArticlesAExclure', $listeArticlesAExclure);
+        }
+        
+        //Dans le cas d'articles à inclure création d'une clause IN
+        if (!empty($listeArticlesAInclure))
+        {
+            $qb->orWhere('a.id IN (:listeArticlesAInclure)')
+            ->setParameter('listeArticlesAInclure', $listeArticlesAInclure);
+        }
+        
+        
 
         //On ajoute un tri si demandé
         if (isset($sortColumn) && isset($sortDirection)) {
             $qb->orderBy('a.' . $sortColumn, $sortDirection);
         }
         
-        //Dans le cas d'articles à exclure création d'une clause NOT IN
-        if (isset($listeArticlesAExclure))
-        {
-            $qb->andWhere('a.id NOT IN (:listeArticlesAExclure)')
-            ->setParameter('listeArticlesAExclure', $listeArticlesAExclure);
-        }
+        
         
 
         if ($query) {
