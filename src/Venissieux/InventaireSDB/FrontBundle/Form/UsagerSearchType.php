@@ -20,7 +20,7 @@ class UsagerSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Nom', TextType::class,array('label'=>'Usager','required'=>false))
+            ->add('Nom', TextType::class,array('label'=>' ','required'=>false))
             ->add('Rechercher',  SubmitType::class,array('label'=>'Rechercher'))
         ;
     }

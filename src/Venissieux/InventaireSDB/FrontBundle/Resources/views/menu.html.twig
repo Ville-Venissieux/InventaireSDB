@@ -6,9 +6,7 @@
     <nav>
         <ul>
             {% if is_granted('ROLE_GESTIONNAIRE') %}
-               {# <li><a href="{{ path('venissieux_inventaire_SDB_front_accueil') }}">Accueil</a></li> #}
                <li><a href="{{ path('venissieux_inventaire_SDB_front_prets') }}">Prêts</a></li>
-                <li><a href="{{ path('venissieux_inventaire_SDB_front_retours') }}">Retours</a></li>
                 <li><a href="{{ path('venissieux_inventaire_SDB_front_article_lister') }}">Articles</a></li>
                 <li><a href="{{ path('venissieux_inventaire_SDB_front_usager_lister') }}">Usagers</a></li>
             {% endif %}

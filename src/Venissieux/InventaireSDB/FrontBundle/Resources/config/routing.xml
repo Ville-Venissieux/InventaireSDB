@@ -66,11 +66,6 @@
     </route>
     
     
-    <!-- Retours -->
-    <route id="venissieux_inventaire_SDB_front_retours" path="/retours/">
-        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Retours:lister</default>
-    </route>
-    
     <!-- Prêts -->
     <route id="venissieux_inventaire_SDB_front_prets" path="/prets/">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Prets:lister</default>

@@ -1,27 +1,29 @@
 {% extends 'VenissieuxInventaireSDBFrontBundle::layout.html.twig' %}
 
 {% block content %}
-
-    {{ form_start(form) }}
-
-    {{ form_errors(form) }}
-
-    <div id="divRechercheCriteres">
-        {{ form_row(form.Nom) }}
-    </div>
-    <div id ="divRechercheBoutons">
-        {{ form_row(form.Rechercher) }}
-    </div>
-
-    {{ form_end(form) }}
-
-
+    
+    
     <div id ="nouvelItem">
         <a href="{{ path('venissieux_inventaire_SDB_front_usager_ajouter') }}">
             Ajouter un nouvel usager&nbsp;
             <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-433-plus.png') }}" alt="Ajouter" />
         </a>
     </div>
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+    <div id="divRechercheAvecBoutton">
+        <div id="divRechercheUsager">
+            {{ form_row(form.Nom) }}
+        </div>
+        <div id ="divRechercheBoutonsUsager">
+            {{ form_row(form.Rechercher) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
     <table id="listeResultats">
         <thead>
             <tr>

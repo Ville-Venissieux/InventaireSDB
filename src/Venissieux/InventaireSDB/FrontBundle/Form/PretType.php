@@ -30,7 +30,7 @@ class PretType extends AbstractType
                 'choice_label' => 'nomComplet',
                 'expanded' => false,
                 'required' => true))
-            ->add('dateOperation',DateType::class, array('label'=>'Date du prêt / retour',
+            ->add('dateOperation',DateType::class, array('label'=>'Date du prêt / retour : ',
                 'input'=>'datetime',
                 'widget'=>'choice',
                 'data'=>new \DateTime(),
