@@ -56,6 +56,17 @@ button, input[type=submit]
     cursor : pointer;
 }
 
+input[type=search]:hover, input[type=search]:focus
+{
+   /* box-shadow: 3px 3px 6px grey ;*/
+}
+
+button:hover
+{
+    box-shadow: 3px 3px 6px grey ;
+    transform: scale(1.2);
+}
+
 #page {
     width:960px;
     margin:0px auto;
@@ -123,9 +134,9 @@ button, input[type=submit]
 #contentMenu {
     background: #DDEEFF ;
     list-style: none;
-    width:100%;
-    height : 300px;
-    border-radius:10px;
+    width:80%;
+    height : 100px;
+    border-radius:15px;
 }
 
 #contentMenu li {
@@ -134,7 +145,6 @@ button, input[type=submit]
 
 #contentMenu li a {
     display: block ;
-    background: #DDEEFF ;
     color: #006E99 ;
     line-height: 1em ;
     text-align: left ;
@@ -146,6 +156,8 @@ button, input[type=submit]
 
 #menu li a:hover, #menu li a:focus, #menu li a:active {
     font-weight: bold;
+    text-shadow: 4px 4px 6px grey ;
+    transform: scale(1.1);
 }
 
 /* ACTIONS SUR LES FORMULAIRES */
@@ -172,13 +184,14 @@ button, input[type=submit]
     width : 140px ;
     margin : 10px;
     text-align: left;
+    font-weight: bold;
 }
 
-#divRechercheCriteres select
+/*#divRechercheCriteres select
 {
     display: inline-block;
     width : 400px ;
-}
+}*/
 
 #divRechercheCriteres
 {
@@ -199,6 +212,39 @@ button, input[type=submit]
     padding-top: 0px;
     padding-left : 70px;
 }
+
+#divRechercheArticles
+{
+    display: inline-block;
+    padding-top: 0px;
+    padding-left : 30px;
+    padding-bottom: 10px;
+}
+
+#divRechercheBoutonsUsager
+{
+    display: inline-block;
+    text-align : center;
+}
+
+#divRechercheUsager
+{
+    display: inline-block;
+    padding-left : 30px;
+    padding-bottom: 15px;
+}
+
+#usager_search_Nom:hover, 
+#usager_search_Nom:focus
+{
+    box-shadow: 3px 3px 3px grey;
+}
+#divRechercheAvecBoutton
+{
+    display: inline-block;
+    float : right;
+}
+
 
 #divRechercheBoutons
 {
@@ -231,7 +277,9 @@ button, input[type=submit]
 /* NOUVEL USAGER */
 #nouvelItem
 {
-    margin:0px 10px 5px 10px;
+    display: inline-block;
+    margin-right: 5px;
+    /*margin:0px 10px 5px 10px;*/
     padding:10px 6px;
 }
 
@@ -245,6 +293,13 @@ button, input[type=submit]
 #nouvelItem img
 {
     vertical-align: middle;
+}
+
+#nouvelItem:hover
+{
+    text-shadow: 3px 3px 6px grey ;
+    font-weight: bold;
+    transform: scale(1.2);
 }
 
 /* ONGLETS */
@@ -492,6 +547,44 @@ input[type=number].montantCourt
     width: 150px;
 }
 
+#pret_dateOperation_day
+{
+    width: 40px;
+    margin : 0px;
+}
+
+#pret_dateOperation_month
+{
+    width: 85px;
+    margin : 0px;
+}
+
+#pret_dateOperation_year
+{
+    width: 55px;
+    margin : 0px;
+}
+
+#pret_usager
+{
+    width: 200px;
+    margin : 0px;
+}
+
+#pret_dateOperation
+{
+    display: inline-block;
+}
+
+
+
+/*#pret_dateOperation_day:hover, #pret_dateOperation_month:hover, #pret_dateOperation_year:hover, 
+#pret_dateOperation_day:focus, #pret_dateOperation_month:focus, #pret_dateOperation_year:focus
+{
+    font-weight: bold;
+    transform: scale(1.1);
+}*/
+
 
 
 
@@ -521,42 +614,42 @@ input[type=number].montantCourt
 
 /* LISTES RESULTATS */
 
-#listeResultats, #listeResultatsArticles, #listeResultatsArticlesPrets, #listeResultatsArticlesEmprunts
+#listeResultats, #listeResultatsArticles, #listeResultatsArticlesPrets, #listeResultatsArticlesEmprunts, #listeResultatsUsagers
 {
     border-collapse:collapse;
-    width: 95%;
+    width: 100%;
     margin : auto;
     margin-bottom : 25px;
 }
 
 
-#listeResultats td, #listeResultatsArticles td, #listeResultatsArticlesPrets td, #listeResultatsArticlesEmprunts td
+#listeResultats td, #listeResultatsArticles td, #listeResultatsArticlesPrets td, #listeResultatsArticlesEmprunts td, #listeResultatsUsagers td
 {
     border : solid 0px;
     margin : 0px;
     padding : 5px;
 }
 
-#listeResultats tr:nth-child(even), #listeResultatsArticles tr:nth-child(even), #listeResultatsArticlesPrets tr:nth-child(even), #listeResultatsArticlesEmprunts tr:nth-child(even)
+#listeResultats tr:nth-child(even), #listeResultatsArticles tr:nth-child(even), #listeResultatsArticlesPrets tr:nth-child(even), #listeResultatsArticlesEmprunts tr:nth-child(even), #listeResultatsUsagers tr:nth-child(even)
 {
     background: #FFFFFF;
     color :  #006E99;
 }
 
-#listeResultats tr:nth-child(odd), #listeResultatsArticles tr:nth-child(odd), #listeResultatsArticlesPrets tr:nth-child(odd), #listeResultatsArticlesEmprunts tr:nth-child(odd)
+#listeResultats tr:nth-child(odd), #listeResultatsArticles tr:nth-child(odd), #listeResultatsArticlesPrets tr:nth-child(odd), #listeResultatsArticlesEmprunts tr:nth-child(odd), #listeResultatsUsagers tr:nth-child(odd)
 {
     background: #DDEEFF;
     color :  #006E99;
 }
 
-#listeResultats thead>tr:first-child, #listeResultatsArticles thead>tr:first-child, #listeResultatsArticlesPrets thead>tr:first-child, #listeResultatsArticlesEmprunts thead>tr:first-child
+#listeResultats thead>tr:first-child, #listeResultatsArticles thead>tr:first-child, #listeResultatsArticlesPrets thead>tr:first-child, #listeResultatsArticlesEmprunts thead>tr:first-child, #listeResultatsUsagers thead>tr:first-child
 {
     background: #006E99;
     color : #FFFFFF;
 }
 
 
-#listeResultats td.nowrap, #listeResultatsArticles td.nowrap, #listeResultatsArticlesPrets td.nowrap, #listeResultatsArticlesEmprunts td.nowrap
+#listeResultats td.nowrap, #listeResultatsArticles td.nowrap, #listeResultatsArticlesPrets td.nowrap, #listeResultatsArticlesEmprunts td.nowrap, #listeResultatsUsagers td.nowrap
 {
     white-space: nowrap;
 }
@@ -730,7 +823,7 @@ input[type=number].montantCourt
 #divLogin label, #divLogin input[type=text],#divLogin input[type=password]
 {
     display: inline-block;
-    width : 125px ;
+    width : 180px ;
     margin : 5px;
     text-align: left;
 }
@@ -764,7 +857,20 @@ input[type=number].montantCourt
     visibility: visible;
 }
 
+/*.TransferEmprunt:hover,
+.TransferArticle:hover
+{
+    text-shadow: 3px 3px 6px grey, 3px 3px 6px grey, 3px 3px 6px grey, 3px 3px 6px grey ;
+    transform: scale(1.2);
+}*/
 
 
-
+/*#pret_usager:hover,
+#pret_usager:focus,
+a[href*="/InventaireSDB/web/app_dev.php/front/usager/editer/"],
+a[href*="/InventaireSDB/web/app_dev.php/front/usager/supprimer/"]
+{
+    transform: scale(1.1);
+}
+*/
 
