@@ -9,6 +9,7 @@
                <li><a href="{{ path('venissieux_inventaire_SDB_front_prets') }}">Prêts</a></li>
                 <li><a href="{{ path('venissieux_inventaire_SDB_front_article_lister') }}">Articles</a></li>
                 <li><a href="{{ path('venissieux_inventaire_SDB_front_usager_lister') }}">Usagers</a></li>
+                <li><a href="{{ path('venissieux_inventaire_SDB_front_edition') }}">Editions</a></li>
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('venissieux_inventaire_SDB_front_utilisateur_lister') }}">Utilisateurs</a></li>

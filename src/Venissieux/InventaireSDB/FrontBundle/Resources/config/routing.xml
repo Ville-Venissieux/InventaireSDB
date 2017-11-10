@@ -5,13 +5,6 @@
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     
-    
-    <!-- accueil -->
-    <route id="venissieux_inventaire_SDB_front_accueil_afficher" path="/">
-        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Accueil:afficher</default>
-    </route>
-    
-    
     <!-- articles -->
     <route id="venissieux_inventaire_SDB_front_article_lister" path="/article/">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:lister</default>
@@ -76,6 +69,15 @@
     </route>
     <route id="venissieux_inventaire_SDB_front_prets_modifier_etat" path="/prets/modifierEtat">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Prets:modifierEtat</default>
+    </route>
+    
+    
+    <!-- Editions -->
+    <route id="venissieux_inventaire_SDB_front_edition" path="/edition/">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Edition:lister</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_edition_exporter" path="/edition/exporter">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Edition:exporter</default>
     </route>
     
 
