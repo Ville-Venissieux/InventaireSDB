@@ -34,6 +34,7 @@
     <route id="venissieux_inventaire_SDB_front_article_paginer" path="/article/paginer">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:paginer</default>
     </route>
+
    
     
     <!-- usagers -->
@@ -72,6 +73,9 @@
     </route>
     <route id="venissieux_inventaire_SDB_front_prets_paginer" path="/prets/paginer">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Prets:paginer</default>
+    </route>
+    <route id="venissieux_inventaire_SDB_front_prets_modifier_etat" path="/prets/modifierEtat">
+        <default key="_controller">VenissieuxInventaireSDBFrontBundle:Prets:modifierEtat</default>
     </route>
     
 

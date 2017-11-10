@@ -12,6 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Etat
 {
+    //Constantes d'énumération nécessaires pour gérer la modification de l'état 
+     const NEUF = 1;
+     const EXCELLENT = 2;
+     const BON = 3;
+     const MAUVAIS = 4;
+     const INUTILISABLE = 5;
+
+    
     /**
      * @var int
      *

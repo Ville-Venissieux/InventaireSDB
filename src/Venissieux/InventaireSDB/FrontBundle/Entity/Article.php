@@ -259,6 +259,7 @@ class Article
     {
         return $this->etat;
     }
+    
 
     /**
      * Set prixAchat

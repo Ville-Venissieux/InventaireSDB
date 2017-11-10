@@ -28,48 +28,12 @@ class UsagerController extends Controller {
         $logger = $this->get('logger');
 
         try {
-            //Création du formulaire
-            $form = $this->createForm(UsagerSearchType::class);
-
-            //réception de la requête dans l'objet formulaire
-            $form->handleRequest($request);
-
-            //Une recherche a été lancée
-            if ($form->isSubmitted()) {
-
-                $logger->info('Lancement d\'une recherche');
-
-                //Récupération des données du formulaire
-                $data = $form->getData();
-
-                //Construction de la requête de recherche en fonction des critères saisis
-                $qb = $em->createQueryBuilder();
-
-                $qb->select('u')
-                        ->from('VenissieuxInventaireSDBFrontBundle:Usager', 'u')
-                        ->orderBy('u.nom', 'ASC');
-
-               
-                //Critère nom
-                if ($data['Nom']) {
-                    $qb->andWhere('UPPER(u.nom) LIKE UPPER(:searchNom)')
-                       ->orWhere('UPPER(u.prenom) LIKE UPPER(:searchNom)')
-                       ->setParameter('searchNom', '%' . $data['Nom'] . '%');
-                    $logger->info('critère usager : ' . $data['Nom']);
-                }
-                
-
-                //Lancement de la requête de recherche
-                $query = $qb->getQuery();
-                $usagers = $query->getResult();
-            } else {
-                //On recherche tous les usagers
-                $usagers = $em->getRepository('VenissieuxInventaireSDBFrontBundle:Usager')->findBy(array(), array('nom'=>'ASC'));
-                $logger->info('Recherche de tous les usagers');
-            }
+            //On recherche tous les usagers
+            $usagers = $em->getRepository('VenissieuxInventaireSDBFrontBundle:Usager')->findBy(array(), array('nom' => 'ASC'));
+            $logger->info('Recherche de tous les usagers');
 
             //Affichage de la vue twig de liste des actions
-            return $this->render('VenissieuxInventaireSDBFrontBundle:Usager:lister.html.twig', array('form' => $form->createView(), 'usagers' => $usagers));
+            return $this->render('VenissieuxInventaireSDBFrontBundle:Usager:lister.html.twig', array('usagers' => $usagers));
         } catch (Exception $e) {
             $request->getSession()->getFlashBag()->add('Erreur', 'Veuillez contacter votre administrateur');
             $logger->error($e->getMessage());
@@ -99,7 +63,7 @@ class UsagerController extends Controller {
                     throw new NotFoundHttpException("Usager non trouvé");
                 }
 
-                $logger->info('Modification de l\' usager ' . $usager->getPrenom().' '.$usager->getNom());
+                $logger->info('Modification de l\' usager ' . $usager->getPrenom() . ' ' . $usager->getNom());
             } else {
 
                 //nouvel usager
@@ -119,7 +83,7 @@ class UsagerController extends Controller {
                 $em->persist($usager);
                 $em->flush();
 
-                $logger->info('Enregistrement de l\'usager ' . $usager->getPrenom().' '.$usager->getNom());
+                $logger->info('Enregistrement de l\'usager ' . $usager->getPrenom() . ' ' . $usager->getNom());
 
                 //Renvoi vers la liste des usagers
                 return new RedirectResponse($this->container->get('router')->generate('venissieux_inventaire_SDB_front_usager_lister'));
@@ -132,8 +96,6 @@ class UsagerController extends Controller {
             $logger->error($e->getMessage());
         }
     }
-
-    
 
     /**
      * Suppression d'un usager
@@ -157,7 +119,7 @@ class UsagerController extends Controller {
                 throw new NotFoundHttpException("Usager non trouvé");
             }
 
-            $logger->info('Suppression de l\'usager ' . $usager->getPrenom().' '.$usager->getNom());
+            $logger->info('Suppression de l\'usager ' . $usager->getPrenom() . ' ' . $usager->getNom());
 
             //Suppression de l'usager en BDD
             $em->remove($usager);

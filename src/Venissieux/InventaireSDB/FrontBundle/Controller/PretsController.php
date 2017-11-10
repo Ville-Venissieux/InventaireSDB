@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Venissieux\InventaireSDB\FrontBundle\Entity\Pret;
+use Venissieux\InventaireSDB\FrontBundle\Entity\Etat;
 
 /**
  * Controleur lié aux prêts
@@ -165,17 +166,17 @@ class PretsController extends Controller {
                 //Comparaison avec la liste des articles empruntés pour déterminer les articles initiaux retournés
                 foreach ($listeArticlesEmpruntesInitiaux as $articleEmprunteInitial) {
                     if (!in_array($articleEmprunteInitial, $listeArticlesEmpruntes)) {
-                        array_push($listeArticlesRetournes,$articleEmprunteInitial);
+                        array_push($listeArticlesRetournes, $articleEmprunteInitial);
                     }
                 }
             }
-            
+
             $sortColumn = $request->get('columns')[$request->get('order')[0]['column']]['data'];
             $sortDirection = $request->get('order')[0]['dir'];
 
             //Lancement de la recherche pour les articles disponibles
             $articles = $this->getDoctrine()->getRepository('VenissieuxInventaireSDBFrontBundle:Article')->search(
-                    $filters, $start, $length, $sortColumn, $sortDirection, true, $listeArticlesEmpruntes,$listeArticlesRetournes
+                    $filters, $start, $length, $sortColumn, $sortDirection, true, $listeArticlesEmpruntes, $listeArticlesRetournes
             );
 
             //Création du tableau de données nécessaire pour la réponse HTTP
@@ -200,6 +201,69 @@ class PretsController extends Controller {
             }
 
             return new Response(json_encode($output), 200, ['Content-Type' => 'application/json']);
+        } catch (Exception $e) {
+            $request->getSession()->getFlashBag()->add('Erreur', 'Veuillez contacter votre administrateur');
+            $logger->error($e->getMessage());
+        }
+    }
+
+    /**
+     * pagination de la liste des articles (AJAX)
+     * @return Response JSON
+     */
+    public function modifierEtatAction(Request $request) {
+
+        //Appel du repository
+        $em = $this->container->get('doctrine')->getManager();
+        $logger = $this->get('logger');
+        
+        $libelleNouvelEtat = '';
+
+        try {
+
+            //Recherche de l'article à modifier
+            $article = $em->find('VenissieuxInventaireSDBFrontBundle:Article', $request->get('idArticle'));
+
+            //On vérifie que l'article possède un état
+            if ($article->getEtat() !== null) {
+                //Dans le cas d'une amélioration de l'état de l'article
+                if ($request->get('ameliorer') == 'true') {
+                    //On vérifie que l'article n'est pas à l'état neuf (on ne pourrait pas améliorer son état dans ce cas)
+                    if ($article->getEtat()->getId() > Etat::NEUF) {
+
+                        //Définition du nouvel état
+                        $nouvelEtat = $em->find('VenissieuxInventaireSDBFrontBundle:Etat', $article->getEtat()->getId() - 1);
+                        $article->setEtat($nouvelEtat);
+                        $logger->info('Modification de l\' article  n° ' . $article->getId() . ' avec l\'état ' . $nouvelEtat->getLibelle());
+
+                        //Enregistrement de l'article en BDD
+                        $em->persist($article);
+                        $em->flush();
+                        $libelleNouvelEtat = $nouvelEtat->getLibelle();
+                        $logger->info('Enregistrement de l\'article n° ' . $article->getId());
+                    }
+                } else {
+                    
+                    //On vérifie que l'article n'est pas à l'état inutilisable (on ne pourrait pas dégrader son état dans ce cas)
+                    if ($article->getEtat()->getId() < Etat::INUTILISABLE) {
+
+                        //Définition du nouvel état
+                        $nouvelEtat = $em->find('VenissieuxInventaireSDBFrontBundle:Etat', $article->getEtat()->getId() + 1);
+                        $article->setEtat($nouvelEtat);
+                        $logger->info('Modification de l\' article  n° ' . $article->getId() . ' avec l\'état ' . $nouvelEtat->getLibelle());
+
+                        
+                        //Enregistrement de l'article en BDD
+                        $em->persist($article);
+                        $em->flush();
+                        $libelleNouvelEtat = $nouvelEtat->getLibelle();
+                        $logger->info('Enregistrement de l\'article n° ' . $article->getId());
+                    }
+                }
+            }
+
+            
+            return new Response($libelleNouvelEtat, 200, ['Content-Type' => 'text/plain']);
         } catch (Exception $e) {
             $request->getSession()->getFlashBag()->add('Erreur', 'Veuillez contacter votre administrateur');
             $logger->error($e->getMessage());

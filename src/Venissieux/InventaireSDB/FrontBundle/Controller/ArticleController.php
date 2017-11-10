@@ -192,5 +192,5 @@ class ArticleController extends Controller {
             $logger->error($e->getMessage());
         }
     }
-
+    
 }

@@ -8,8 +8,7 @@
 
 
     <div class='ligneFormulaireType3'>    
-        {{ form_label(form.dateOperation) }}
-        {{ form_widget(form.dateOperation) }}
+
     </div>
     <br/>
     <table id="listeResultatsArticlesPrets">
@@ -30,15 +29,19 @@
 
     <div id="divRechercheCriteres">
         <div>
+            {{ form_label(form.dateOperation) }}
+            {{ form_widget(form.dateOperation) }}
+        </div>
+        <div>
             {{ form_label(form.usager) }}
             {{ form_widget(form.usager, {'attr': {'onChange':'this.form.submit();'}}) }}
         </div>
     </div>
-        
-        
+
+
     {# Champ caché permettant de stocker les id des articles sélectionnés dans la liste listeResultatsArticlesEmprunts#}    
     <input type="hidden" name="hidListeResultatsArticlesEmprunts" id="hidListeResultatsArticlesEmprunts">
-    
+
     {# Champ caché permettant de stocker les id des articles initiaux de la liste listeResultatsArticlesEmprunts#}    
     <input type="hidden" name="hidListeResultatsArticlesInitiaux" id="hidListeResultatsArticlesInitiaux">
 
