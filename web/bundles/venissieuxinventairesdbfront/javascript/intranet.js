@@ -188,7 +188,7 @@ $(document).ready(function () {
             {"data": "categorie", "orderable": false},
             {"data": "etat", "orderable": false, "className": "dt-body-left dt-body-nowrap",
                 "render": function (data, type, row) {
-                    
+
                     var htmlEtat = data + '&nbsp;';
 
                     if (row.etat != 'Inutilisable')
@@ -347,6 +347,29 @@ $(document).ready(function () {
             }
         });
     });
+
+
+
+    //Ajout des libellés de choix Tous sur les listes déroulantes des éditions
+    $('#edition_usager>option[value=\'\']').html('Tous');
+    $('#edition_categorie>option[value=\'\']').html('Tous');
+
+    //La liste déroulante des usagers est désactivée par défaut
+    $('#edition_usager').prop('disabled', true);
+
+    //En fonction des choix de disponibilité, la liste déroulante des usagers est activée ou désactivée
+    $('#edition_disponible').change(function () {
+        if ($('#edition_disponible option:selected').val() == '3')
+        {
+            $('#edition_usager').prop('disabled', false);
+        } else
+        {
+            $('#edition_usager').prop('disabled', true);
+            $('#edition_usager').val('');
+        }
+    });
+
+
 
 
 });
