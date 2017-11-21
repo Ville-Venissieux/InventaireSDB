@@ -35,7 +35,7 @@ security:
                 provider: fos_userbundle
                 service : app.ldap
                 dn_string: "{username}@veni.local"
-                default_target_path: venissieux_inventaire_SDB_front_usager_lister
+                default_target_path: venissieux_inventaire_SDB_front_prets
                 csrf_token_generator: security.csrf.token_manager
 
             logout:

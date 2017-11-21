@@ -2,17 +2,30 @@
 
 {% block content %}
     
-    
-    <div id ="nouvelItem">
-        <a href="{{ path('venissieux_inventaire_SDB_front_edition_exporter') }}">
-            Exporter&nbsp;
-            <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-360-file-export.png') }}" alt="Ajouter" />
-        </a>
+     {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    <div id="divFormulaire" class="formulaireType1">
+        <div>
+            {{ form_label(form.disponible) }}
+            {{ form_widget(form.disponible) }}
+        </div>
+         <div>
+            {{ form_label(form.usager) }}
+            {{ form_widget(form.usager) }}
+        </div>
+         <div>
+            {{ form_label(form.categorie) }}
+            {{ form_widget(form.categorie) }}
+        </div>
+    </div>
+    <div id ="divProjets">
+        {{ form_widget(form.editer) }}
     </div>
 
-
-
-
+    {{ form_end(form) }}
+    
 
 
 {% endblock %}
