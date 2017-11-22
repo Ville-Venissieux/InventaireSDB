@@ -108,7 +108,7 @@ $(document).ready(function () {
 
 
 
-    //Concerne l'affichage de la liste des  pour les prêts
+    //Concerne l'affichage de la liste des articles pour les prêts
     var listeResultatsArticlesPretsTable = $('#listeResultatsArticlesPrets').DataTable({
         //Afficher le champ de recherche
         searching: true,
@@ -180,13 +180,16 @@ $(document).ready(function () {
 
         //Supression de la pagination
         bPaginate: false,
+        
+        //supression des infos de pagination
+        info: false,
 
         //Définition des colonnes
         columns: [
             {"data": "id", "orderable": true},
             {"data": "nom", "orderable": true},
             {"data": "categorie", "orderable": false},
-            {"data": "etat", "orderable": false, "className": "dt-body-left dt-body-nowrap",
+            {"data": "etat", "orderable": false, "className": "dt-body-left dt-body-nowrap ",
                 "render": function (data, type, row) {
 
                     var htmlEtat = data + '&nbsp;';
