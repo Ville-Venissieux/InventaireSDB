@@ -10,64 +10,67 @@ namespace Venissieux\InventaireSDB\FrontBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository {
 
-    public function search($data, $page = 0, $max = NULL, $sortColumn = null, $sortDirection = null, $disponibleOnly = false,$listeArticlesAExclure = null,$listeArticlesAInclure = null, $getResult = true) {
+    public function search($data, $page = 0, $max = NULL, $sortColumn = null, $sortDirection = null, $disponibleOnly = false, $listeArticlesAExclure = null, $listeArticlesAInclure = null, $getResult = true) {
         $qb = $this->_em->createQueryBuilder();
         $query = isset($data['query']) && $data['query'] ? $data['query'] : null;
 
         $qb
                 ->select('a')
                 ->from('VenissieuxInventaireSDBFrontBundle:Article', 'a');
-        
-        
+
+
         //Dans le cas des articles disponibles (aucune occurence de prets avec une date de retour vide)
-        if ($disponibleOnly)
-        {
+        if ($disponibleOnly) {
             $sub = $this->_em->createQueryBuilder();
             $sub->select('p');
-            $sub->from('VenissieuxInventaireSDBFrontBundle:Pret','p');
+            $sub->from('VenissieuxInventaireSDBFrontBundle:Pret', 'p');
             $sub->andWhere('p.article = a');
             $sub->andWhere('p.dateRetour is null');
-            
+
             //Ajout de la condition (imbrication de la sous requête exists avec la requête initiale)
             $qb->andWhere($qb->expr()->not($qb->expr()->exists($sub->getDQL())));
-       
         }
-        
+
         //Dans le cas d'articles à exclure création d'une clause NOT IN
-        if (!empty($listeArticlesAExclure))
-        {
+        if (!empty($listeArticlesAExclure)) {
             $qb->andWhere('a.id NOT IN (:listeArticlesAExclure)')
-            ->setParameter('listeArticlesAExclure', $listeArticlesAExclure);
+                    ->setParameter('listeArticlesAExclure', $listeArticlesAExclure);
         }
-        
+
         //Dans le cas d'articles à inclure création d'une clause IN
-        if (!empty($listeArticlesAInclure))
-        {
+        if (!empty($listeArticlesAInclure)) {
             $qb->orWhere('a.id IN (:listeArticlesAInclure)')
-            ->setParameter('listeArticlesAInclure', $listeArticlesAInclure);
+                    ->setParameter('listeArticlesAInclure', $listeArticlesAInclure);
         }
-        
-        
+
+
 
         //On ajoute un tri si demandé
         if (isset($sortColumn) && isset($sortDirection)) {
             $qb->orderBy('a.' . $sortColumn, $sortDirection);
         }
-        
-        
-        
+
+
+
 
         if ($query) {
-            $qb
-                    ->andWhere('UPPER(a.nom) like UPPER(:query)')
-                    //->orWhere('UPPER(a.categorie.libelle) like UPPER(:query)')
-                    ->orWhere('UPPER(a.commentaire) like UPPER(:query)')
-                    ->setParameter('query', "%" . $query . "%")
-            ;
+
+            $queryCriteria = 'UPPER(a.nom) like UPPER(:query) OR UPPER(a.commentaire) like UPPER(:query)';
+
+
+
+
+
             //Si la valeur recherchée est un entier, on ajoute une recherche sur l'id de l'article
-            if (is_integer($query)) {
-                $qb->orWhere('a.id = :queryInt')
-                        ->setParameter('queryInt', (int) $query);
+            if (ctype_digit($query)) {
+                $queryCriteria = $queryCriteria . ' OR a.id = :queryInt';
+            }
+
+            $qb->andWhere($queryCriteria);
+            $qb->setParameter('query', "%" . $query . "%");
+            
+            if (ctype_digit($query)) {
+                $qb->setParameter('queryInt', (int) $query);
             }
         }
 
@@ -76,10 +79,11 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository {
                     ->setMaxResults($max)
                     ->setFirstResult($page * $max)
             ;
-        } 
-        else {
+        } else {
             $preparedQuery = $qb->getQuery();
         }
+
+        dump($qb->getQuery());
 
         return $getResult ? $preparedQuery->getResult() : $preparedQuery;
     }
