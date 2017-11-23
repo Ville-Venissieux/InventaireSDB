@@ -29,8 +29,6 @@ img {
 }
 
 
-
-
 textarea,select, input[type=text],input[type=checkbox],input[type=radio]
 {
     font-family:Lucida Grande, Arial, Helvetica, Verdana, sans-serif;
@@ -193,51 +191,8 @@ button:hover
     padding-left : 40px;
 }
 
-#divRechercheArticles
-{
-    padding-top: 0px;
-    padding-left : 30px;
-    padding-bottom: 10px;
-}
 
-#divRechercheBoutonsArticles
-{
-    display: inline-block;
-    padding-top: 0px;
-    padding-left : 70px;
-}
 
-#divRechercheArticles
-{
-    display: inline-block;
-    padding-top: 0px;
-    padding-left : 30px;
-    padding-bottom: 10px;
-}
-
-#divRechercheBoutonsUsager
-{
-    display: inline-block;
-    text-align : center;
-}
-
-#divRechercheUsager
-{
-    display: inline-block;
-    padding-left : 30px;
-    padding-bottom: 15px;
-}
-
-#usager_search_Nom:hover, 
-#usager_search_Nom:focus
-{
-    box-shadow: 3px 3px 3px grey;
-}
-#divRechercheAvecBoutton
-{
-    display: inline-block;
-    float : right;
-}
 
 
 #divRechercheBoutons
@@ -248,32 +203,12 @@ button:hover
     padding-bottom: 20px;
 }
 
-#projet_search_ProjetObjectif
-{
-    width : 250px ;
-}
-
-#projetObjectif
-{
-    width : 480px ;
-    display: inline-block;
-}
-
-#projetContratVenissian
-{
-    margin-left: 5px;
-    width : 220px ;
-    display: inline-block;
-}
-
-
 
 /* NOUVEL USAGER */
 #nouvelItem
 {
     display: inline-block;
     margin-right: 5px;
-    /*margin:0px 10px 5px 10px;*/
     padding:10px 6px;
 }
 
@@ -296,82 +231,10 @@ button:hover
     transform: scale(1.2);
 }
 
-/* ONGLETS */
-
-#divOnglets
-{
-    border-bottom : 1px solid #9EA0A1;
-    padding-bottom : 34px;
-    margin : 0px 10px 0px 10px;
-}
-
-
-#onglets
-{
-    position : absolute;
-    border : 1px solid transparent;
-    padding : 0;
-    font : 14px Arial;
-    list-style-type : none;
-    left : 35%;
-    margin-top : 0;
-    width : 650px;
-}
-
-#onglets li
-{
-    float : left;
-    height : 30px; /* à modifier suivant la taille de la police pour centrer le texte dans l'onglet */
-    background-color: #F4F9FD;
-    margin : 2px 2px 0 2px !important;  /* Pour les navigateurs autre que IE */
-    margin : 1px 2px 0 2px;  /* Pour IE  */
-    border : 1px solid #9EA0A1;
-}
-
-#onglets li.active
-{
-    border-bottom: 1px solid #fff;
-    background-color: #fff;
-    font-weight: bold;
-}
-
-#onglets a
-{
-    display : block;
-    color : #006E99;
-    text-decoration : none;
-    padding : 4px;
-}
-
-#onglets a:hover
-{
-    background : #fff;
-    font-weight: bold;
-
-}
-
-
-#contentProjet
-{
-    min-height: 450px;
-    margin : 0px 10px 10px 10px;
-    padding-top: 25px;
-}
-
-
-.bordureOnglet
-{
-
-    border-bottom: 1px solid #9EA0A1;
-    border-left: 1px solid #9EA0A1;
-    border-right: 1px solid #9EA0A1;
-
-}
-
 
 /* FORMULAIRE */
 
-.formulaireType1 ,.formulaireType2,.formulaireType5
+.formulaireType1 ,.formulaireType2
 {
     padding-left : 40px;
 }
@@ -381,7 +244,7 @@ button:hover
     display: inline-block;
 }
 
-.formulaireType1 label ,.formulaireType2 label, .formulaireType5 label
+.formulaireType1 label ,.formulaireType2 label
 {
     display: inline-block;
     width : 200px ;
@@ -403,16 +266,6 @@ button:hover
     display: inline-block;
     width: 200px;
     vertical-align: middle;
-}
-
-/* Formulaire avec espace à gauche et à droite */
-
-.encadrement
-{
-    padding-left : 20px;
-    padding-right : 20px;
-    padding-top : 10px;
-    padding-bottom : 10px;
 }
 
 
@@ -440,37 +293,6 @@ button:hover
 
 
 
-/*Formulaire avec cases à cocher*/
-
-div.ligneFormulaireType4
-{
-    margin-left: 220px;
-}
-
-.ligneFormulaireType4 label
-{
-    display: inline-block;
-    width: 150px;
-    vertical-align: middle;
-    text-align: left;
-}
-
-.ligneFormulaireType4 input[type=checkbox]
-{
-    display: inline-block;
-    vertical-align: middle;
-}
-
-/* formulaire avec des contrôles de 150 px */
-.formulaireType5 input[type=text], .formulaireType5 input[type=number], .formulaireType5  textarea, .formulaireType5 select
-{
-    display: inline-block;
-    width: 150px;
-    vertical-align: middle;
-
-}
-
-
 /* formulaire avec des montants */
 
 .formulaireType3 label:first-child
@@ -491,30 +313,6 @@ div.ligneFormulaireType4
     vertical-align: middle;
 }
 
-.ligneFormulaireType6 input[type=number]
-{
-    display: inline-block;
-    width: 75px;
-    margin-top : 10px;
-    margin-bottom : 10px;
-    vertical-align: middle;
-}
-
-.ligneFormulaireType6 label
-{
-    display: inline-block;
-    width: 30px;
-    vertical-align: middle;
-    margin-right:0px;
-    margin-left:5px; 
-}
-
-
-
-
-
-
-
 
 
 /* Pour définir des listes déroulantes de choix de dates */
@@ -530,16 +328,6 @@ div.ligneFormulaireType4
     width: 90px;
 }
 
-/* Case à cocher décalée de 40px*/
-.checkboxDecale
-{
-    margin-left: 40px;
-}
-
-input[type=number].montantCourt
-{
-    width: 150px;
-}
 
 #pret_dateOperation_day
 {
@@ -570,32 +358,6 @@ input[type=number].montantCourt
     display: inline-block;
 }
 
-
-
-/*#pret_dateOperation_day:hover, #pret_dateOperation_month:hover, #pret_dateOperation_year:hover, 
-#pret_dateOperation_day:focus, #pret_dateOperation_month:focus, #pret_dateOperation_year:focus
-{
-    font-weight: bold;
-    transform: scale(1.1);
-}*/
-
-
-
-
-#projet_directionsAssociees label,#projet_view_directionsAssociees label
-{
-    display: inline-block;
-    width : 40px ;
-    margin : 0px;
-    text-align: left;
-}
-
-#projet_directionsAssociees,#projet_view_directionsAssociees
-{
-    display: inline-block;
-    width : 420px ;
-    vertical-align: middle;
-}
 
 #utilisateur_roles label
 {
@@ -649,46 +411,6 @@ input[type=number].montantCourt
     white-space: nowrap;
 }
 
-#listeResultats2
-{
-    border-collapse:collapse;
-    width: 95%;
-    margin : auto;
-    margin-bottom : 25px;
-}
-
-#listeResultats2 td, th ,tr
-{
-    border : solid 0px;
-    margin : 0px;
-    padding : 5px;
-}
-
-#listeResultats2 tr:nth-child(even)
-{
-    background: #FFFFFF;
-    color :  #006E99;
-}
-
-#listeResultats2 tr:nth-child(odd)
-{
-    background: #DDEEFF;
-    color :  #006E99;
-}
-
-#listeResultats2 tr>th
-{
-    background: #006E99;
-    color : #FFFFFF;
-}
-
-
-#listeResultats2 td.nowrap
-{
-    white-space: nowrap;
-    text-align: right;
-}
-
 
 #listeItem
 {
@@ -729,10 +451,6 @@ input[type=number].montantCourt
     white-space: nowrap;
 }
 
-
-
-
-
 #footer {
     clear:both;
     margin:10px 0px 10px 0px;
@@ -740,15 +458,6 @@ input[type=number].montantCourt
     text-align:center;
     background:#FFFFFF;
     border-top:2px solid #322212;
-}
-
-
-.textMax{
-    width:250px;
-}
-
-.textMontant{
-    width:100px;
 }
 
 .error{
@@ -759,26 +468,6 @@ input[type=number].montantCourt
     font-style: italic;
 }
 
-/* EXPORT */
-
-#exportPDF
-{
-    margin:0px 10px 5px 10px;
-    padding:10px 6px;
-    text-align: right;
-}
-
-#exportPDF a
-{
-    font-size:14px;
-    font-weight:bold;
-    color:#006E99;
-}
-
-#exportPDF img
-{
-    vertical-align: middle;
-}
 
 
 /* LOGIN */
@@ -822,36 +511,6 @@ input[type=number].montantCourt
     margin : 5px;
     text-align: left;
 }
-
-/* TOOLTIPS */
-
-/* Tooltip container */
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #006E99;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    z-index: 1;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
-
 
 
 /*Centre l'image par rapport au contenu texte de la cellule*/
