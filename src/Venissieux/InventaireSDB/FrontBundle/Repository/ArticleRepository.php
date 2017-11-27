@@ -83,8 +83,6 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository {
             $preparedQuery = $qb->getQuery();
         }
 
-        dump($qb->getQuery());
-
         return $getResult ? $preparedQuery->getResult() : $preparedQuery;
     }
 
