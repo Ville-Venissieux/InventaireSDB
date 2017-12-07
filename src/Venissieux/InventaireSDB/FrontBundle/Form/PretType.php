@@ -23,7 +23,7 @@ class PretType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('usager', EntityType::class,array('label'=>'nom',
+            ->add('usager', EntityType::class,array('label'=>'Usager',
                 'class' => 'Venissieux\InventaireSDB\FrontBundle\Entity\Usager',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')-> orderBy('u.nom','ASC');},
