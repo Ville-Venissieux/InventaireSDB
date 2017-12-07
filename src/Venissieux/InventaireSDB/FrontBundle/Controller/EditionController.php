@@ -40,8 +40,6 @@ class EditionController extends Controller {
                 //Récupération des données du formulaire
                 $data = $form->getData();
 
-                dump($data);
-
                 //Construction de la requête de recherche des articles en fonction des critères saisis
                 $qb = $em->createQueryBuilder();
 
