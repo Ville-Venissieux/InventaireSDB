@@ -5,10 +5,9 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_CONTRIBUTEUR : ROLE_USER
-        ROLE_GESTIONNAIRE : ROLE_CONTRIBUTEUR
+        ROLE_GESTIONNAIRE : ROLE_USER
         ROLE_ADMIN: ROLE_GESTIONNAIRE
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
 
     providers:
         chain_provider:
@@ -23,7 +22,7 @@ security:
                 search_dn: "dsi_intra"
                 search_password: "apl,intra,01"
                 filter: (sAMAccountName={username})
-                default_roles: ROLE_CONTRIBUTEUR
+                default_roles: ROLE_GESTIONNAIRE
 
     firewalls:
         dev:
