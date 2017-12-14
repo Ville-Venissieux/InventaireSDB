@@ -1,5 +1,35 @@
-//Concerne l'affichage de la liste des articles
+
 $(document).ready(function () {
+
+
+
+//Liste des prêts d'un article (Ecran de détail d'un article)
+ $('#listePretsArticle').DataTable({
+        //Afficher le champ de recherche
+        searching: false,
+        //Supprimer la pagination
+        bPaginate: false,
+        bLengthChange: false,
+        bInfo : false,
+        //Tri par défaut sur la date de pret
+        order: [[ 1, "desc" ]]
+    });
+    
+    
+    //Liste des prêts d'un usager (Ecran de détail d'un usager)
+ $('#listePretsUsager').DataTable({
+        //Afficher le champ de recherche
+        searching: false,
+        //Supprimer la pagination
+        bPaginate: false,
+        bLengthChange: false,
+        bInfo : false,
+        //Tri par défaut sur la date de pret
+        order: [[ 2, "desc" ]]
+    });
+
+
+
 
 
     $('#listeResultatsUsagers').DataTable({
