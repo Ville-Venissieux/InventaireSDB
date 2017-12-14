@@ -34,6 +34,18 @@ class Usager
      * @ORM\Column(name="prenom", type="string", length=100)
      */
     private $prenom;
+    
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Pret",mappedBy="usager")
+     */
+    private $prets;
+    
+    
+    
+     public function __construct() {
+        $this->prets = new ArrayCollection();
+    }
 
 
     /**
@@ -102,5 +114,39 @@ class Usager
     public function getNomComplet()
     {
         return $this->prenom." ".$this->nom;
+    }
+
+    /**
+     * Add pret
+     *
+     * @param \Venissieux\InventaireSDB\FrontBundle\Entity\Pret $pret
+     *
+     * @return Usager
+     */
+    public function addPret(\Venissieux\InventaireSDB\FrontBundle\Entity\Pret $pret)
+    {
+        $this->prets[] = $pret;
+
+        return $this;
+    }
+
+    /**
+     * Remove pret
+     *
+     * @param \Venissieux\InventaireSDB\FrontBundle\Entity\Pret $pret
+     */
+    public function removePret(\Venissieux\InventaireSDB\FrontBundle\Entity\Pret $pret)
+    {
+        $this->prets->removeElement($pret);
+    }
+
+    /**
+     * Get prets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPrets()
+    {
+        return $this->prets;
     }
 }

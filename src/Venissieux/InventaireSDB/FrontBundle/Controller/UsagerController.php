@@ -90,7 +90,7 @@ class UsagerController extends Controller {
             }
 
             //Affichage de la vue twig d'édition des usagers
-            return $this->render('VenissieuxInventaireSDBFrontBundle:Usager:editer.html.twig', array('form' => $form->createView()));
+            return $this->render('VenissieuxInventaireSDBFrontBundle:Usager:editer.html.twig', array('form' => $form->createView(),'usager' => $usager));
         } catch (Exception $e) {
             $request->getSession()->getFlashBag()->add('Erreur', 'Veuillez contacter votre administrateur');
             $logger->error($e->getMessage());

@@ -58,15 +58,17 @@ class ArticleController extends Controller {
                 if (!$article) {
                     throw new NotFoundHttpException("Article non trouvé");
                 }
-
+              
                 $logger->info('Modification de l\' article  n° ' . $article->getId());
             } else {
 
                 //nouvel article
                 $article = new Article();
-
+                
                 $logger->info('Saisie d\'un article');
             }
+            
+            
 
             //Création du formulaire et association à l'objet concerné
             $form = $this->createForm(ArticleType::class, $article);
@@ -84,9 +86,9 @@ class ArticleController extends Controller {
                 //Renvoi vers la liste des articles
                 return new RedirectResponse($this->container->get('router')->generate('venissieux_inventaire_SDB_front_article_lister'));
             }
-
+            
             //Affichage de la vue twig d'édition des articles
-            return $this->render('VenissieuxInventaireSDBFrontBundle:Article:editer.html.twig', array('form' => $form->createView()));
+            return $this->render('VenissieuxInventaireSDBFrontBundle:Article:editer.html.twig', array('form' => $form->createView(),'article' => $article));
         } catch (Exception $e) {
             $request->getSession()->getFlashBag()->add('Erreur', 'Veuillez contacter votre administrateur');
             $logger->error($e->getMessage());

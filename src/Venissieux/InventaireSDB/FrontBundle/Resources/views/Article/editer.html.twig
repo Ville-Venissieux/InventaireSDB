@@ -32,12 +32,7 @@
             {{ form_label(form.fournisseur) }}
             {{ form_widget(form.fournisseur) }}
         </div>
-        
-        {#<div>
-            {{ form_label(form.statut) }}
-            {{ form_widget(form.statut) }}
-        </div>#}
-        
+          
         <div>
             {{ form_label(form.etat) }}
             {{ form_widget(form.etat) }}
@@ -54,7 +49,6 @@
             {{ form_errors(form.dateAchat) }}
             {{ form_errors(form.prixAchat) }}
             {{ form_errors(form.fournisseur) }}
-            {#{{ form_errors(form.statut) }}#}
             {{ form_errors(form.etat) }}
             {{ form_errors(form.commentaire) }}
         </div>
@@ -66,6 +60,28 @@
     </div>
 
     {{ form_end(form) }}
+    
+    
+    <table id="listePretsArticle">
+        <thead>
+            <tr>
+                <th>Usager</th>
+                <th>Date de prêt</th>
+                <th>Date de retour</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in article.prets %}
+                <tr>
+                    <td>{{ p.usager.nomComplet }}</td>
+                    <td>{{ p.datePret |date('Y-m-d') }}</td>
+                    <td>{{ p.dateRetour? p.dateRetour |date('Y-m-d') }}</td> 
+                </tr>
+            {% else %}
+                <tr><td colspan="3">Aucun prêt n'a été trouvé</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 
 

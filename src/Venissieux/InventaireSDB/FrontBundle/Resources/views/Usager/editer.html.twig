@@ -3,7 +3,7 @@
 {% block content %}
 
     {{ form_start(form) }}
-    
+
     <!-- !!!!!!!!!!!!!!!!! BOUTON POUR EXPORTER !!!!!!!!!!!!!! !-->
 
     {{ form_errors(form) }}
@@ -28,6 +28,27 @@
 
     {{ form_end(form) }}
 
-
+    <table id="listePretsUsager">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Article</th>
+                <th>Date de prêt</th>
+                <th>Date de retour</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in usager.prets %}
+                <tr>
+                    <td>{{ p.article.id }}</td>
+                    <td>{{ p.article.nom }}</td>
+                    <td>{{ p.datePret |date('Y-m-d') }}</td>
+                    <td>{{ p.dateRetour? p.dateRetour |date('Y-m-d') }}</td> 
+                </tr>
+            {% else %}
+                <tr><td colspan="4">Aucun prêt n'a été trouvé</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

@@ -32,7 +32,13 @@ class ArticleType extends AbstractType
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')-> orderBy('u.libelle','ASC');},
                     'required' => true))
-            ->add('dateAchat',DateType::class, array('label'=>'Date d\'achat','input'=>'datetime','widget'=>'choice', 'format'=> 'dd-MMMM-yyyy','invalid_message' => 'La date d\'achat n\'est pas valide'))
+            ->add('dateAchat',DateType::class, array('label'=>'Date d\'achat',
+                'input'=>'datetime',
+                'widget'=>'choice',
+                //Il est nécessaire de fournir une plage d'année sinon elle est de +5/-5 ans par défaut
+                'years' => range(date('Y') - 40, date('Y') + 10),
+                'format'=> 'dd-MMMM-yyyy',
+                'invalid_message' => 'La date d\'achat n\'est pas valide'))
             ->add('prixAchat', MoneyType::class, array('required' => false, 'invalid_message' => 'Le prix d\'achat n\'est pas valide'))
             ->add('fournisseur', TextType::class, array('max_length' => 100, 'required' => false))
             ->add('etat', EntityType::class, array('label' => 'Etat',

@@ -37,7 +37,7 @@ class Pret
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Usager")
+     * @ORM\ManyToOne(targetEntity="Usager",inversedBy="prets")
      */
     private $usager;
     
