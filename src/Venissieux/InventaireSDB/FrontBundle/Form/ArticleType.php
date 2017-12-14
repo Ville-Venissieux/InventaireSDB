@@ -25,6 +25,7 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', TextType::class, array('disabled'=>true))
             ->add('nom', TextType::class, array('max_length' => 100))
             ->add('categorie', EntityType::class, array('label' => 'Catégorie',
                     'class' => 'Venissieux\InventaireSDB\FrontBundle\Entity\Categorie',

@@ -2,6 +2,15 @@
 
 {% block content %}
 
+    {% if app.request.attributes.get('_route') == 'venissieux_inventaire_SDB_front_article_editer' %}
+        <div id ="nouvelItem">
+            <a href="{{ path('venissieux_inventaire_SDB_front_article_ajouter') }}">
+                Ajouter un nouvel article&nbsp;
+                <img src="{{ asset('bundles/venissieuxinventaireSDBfront/images/glyphicons-433-plus.png') }}" alt="Ajouter" />
+            </a>
+        </div>
+    {% endif %}
+
     {{ form_start(form) }}
 
     {{ form_errors(form) }}
@@ -9,40 +18,45 @@
     <div id="divFormulaire" class="formulaireType1">
 
         <div>
+            {{ form_label(form.id) }}
+            {{ form_widget(form.id) }}
+        </div>
+
+        <div>
             {{ form_label(form.nom) }}
             {{ form_widget(form.nom) }}
         </div>
-        
+
         <div>
             {{ form_label(form.categorie) }}
             {{ form_widget(form.categorie) }}
         </div>
-        
+
         <div>
             {{ form_label(form.dateAchat) }}
             {{ form_widget(form.dateAchat ,{'attr': {'class': 'dateSelect'}}) }}
         </div>
-        
+
         <div>
             {{ form_label(form.prixAchat) }}
             {{ form_widget(form.prixAchat) }}
         </div>
-        
+
         <div>
             {{ form_label(form.fournisseur) }}
             {{ form_widget(form.fournisseur) }}
         </div>
-          
+
         <div>
             {{ form_label(form.etat) }}
             {{ form_widget(form.etat) }}
         </div>
-        
+
         <div>
             {{ form_label(form.commentaire) }}
             {{ form_widget(form.commentaire) }}
         </div>
-        
+
         <div class="error">
             {{ form_errors(form.nom) }}
             {{ form_errors(form.categorie) }}
@@ -54,14 +68,14 @@
         </div>
 
     </div>
-        
+
     <div id ="divProjets">
         <a class="lienRetour" href="{{ path('venissieux_inventaire_SDB_front_article_lister') }}">Retour</a> &nbsp&nbsp {{ form_widget(form.valider) }}
     </div>
 
     {{ form_end(form) }}
-    
-    
+
+
     <table id="listePretsArticle">
         <thead>
             <tr>

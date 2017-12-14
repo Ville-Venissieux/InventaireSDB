@@ -64,6 +64,7 @@ class ArticleController extends Controller {
 
                 //nouvel article
                 $article = new Article();
+                $article->setDateAchat(new \DateTime());
                 
                 $logger->info('Saisie d\'un article');
             }
@@ -84,7 +85,7 @@ class ArticleController extends Controller {
                 $logger->info('Enregistrement de l\'article n° ' . $article->getId());
 
                 //Renvoi vers la liste des articles
-                return new RedirectResponse($this->container->get('router')->generate('venissieux_inventaire_SDB_front_article_lister'));
+                return new RedirectResponse($this->container->get('router')->generate('venissieux_inventaire_SDB_front_article_editer',array('id' =>$article->getId())));
             }
             
             //Affichage de la vue twig d'édition des articles
