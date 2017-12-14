@@ -31,14 +31,11 @@
         font-size: 15px;
     }
 
-    h2
-    {
-        text-align: center;
-    }
-
     h3
     {
-        text-align: center;
+        font-size: 11px;
+        text-align: left;
+        font-weight: bold;
     }
 
     hr{
@@ -105,5 +102,11 @@
             </tr>
         {% endfor %}
     </table>
+    {% if usager is not null %}
+        <div id="commentaire">
+            <h3>commentaire :</h3>
+            {{ usager.commentaire | nl2br }}
+        <div/>
+    {% endif %}
 </body>
 

@@ -41,6 +41,13 @@ class Usager
      */
     private $prets;
     
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="string", length=1000, nullable=true)
+     */
+    private $commentaire;
+    
     
     
      public function __construct() {
@@ -148,5 +155,29 @@ class Usager
     public function getPrets()
     {
         return $this->prets;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     *
+     * @return Usager
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
     }
 }

@@ -42,6 +42,8 @@ class EditionController extends Controller {
 
                 //Construction de la requête de recherche des articles en fonction des critères saisis
                 $qb = $em->createQueryBuilder();
+                //Nécessaire pour déterminer si la requete conserne un usager
+                $usager = null;
 
                 $qb->select('a')
                         ->from('VenissieuxInventaireSDBFrontBundle:Article', 'a')
@@ -79,6 +81,7 @@ class EditionController extends Controller {
 
                     //Si on ne prends que les articles prêtés à un usager
                     if (isset($data['usager'])) {
+                        $usager = $data['usager'];
                         $qb->innerJoin('p.usager', 'u');
                         $qb->andWhere('u.id = :searchUsager')->setParameter('searchUsager', $data['usager']->getId());
                         $logger->info('critère usager : ' . $data['usager']->getNomComplet());
@@ -94,7 +97,7 @@ class EditionController extends Controller {
 
 
                 //Création du rapport en HTML
-                $html = $this->renderView('VenissieuxInventaireSDBFrontBundle:Edition:exportArticles.html.twig', array('articles' => $articles));
+                $html = $this->renderView('VenissieuxInventaireSDBFrontBundle:Edition:exportArticles.html.twig', array('articles' => $articles,'usager' => $usager));
                 //Création de l'export PDF
                 $pdf = $this->get("white_october.tcpdf")->create();
                 $pdf->SetAuthor('Ville de Vénissieux');

@@ -4,7 +4,6 @@
 
     {{ form_start(form) }}
 
-    <!-- !!!!!!!!!!!!!!!!! BOUTON POUR EXPORTER !!!!!!!!!!!!!! !-->
 
     {{ form_errors(form) }}
 
@@ -15,10 +14,13 @@
             {{ form_widget(form.prenom) }}
             {{ form_label(form.nom) }}
             {{ form_widget(form.nom) }}
+            {{ form_label(form.commentaire) }}
+            {{ form_widget(form.commentaire) }}
         </div>
         <div class="error">
             {{ form_errors(form.prenom) }}
             {{ form_errors(form.nom) }}
+            {{ form_errors(form.commentaire) }}
         </div>
 
     </div>
