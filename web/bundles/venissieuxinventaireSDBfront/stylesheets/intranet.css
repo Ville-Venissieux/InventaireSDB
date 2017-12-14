@@ -1,0 +1,520 @@
+/* Feuille de styles Gestion des accès */
+
+body {
+    margin:0px;
+    padding:0px;
+    font-family:Lucida Grande, Arial, Helvetica, Verdana, sans-serif;
+    font-size:12px;
+    color:#464646;
+    background:#FFFFFF url("../images/bg_body.gif") repeat-x;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin:0px;
+    padding:0px;
+}
+
+p {
+    margin:0px;
+    padding:0px;
+}
+
+a {
+    color:#464646;
+    text-decoration:none;
+}
+
+img {
+    border:0px;
+}
+
+
+textarea,select, input[type=text],input[type=checkbox],input[type=radio]
+{
+    font-family:Lucida Grande, Arial, Helvetica, Verdana, sans-serif;
+    font-size:12px;
+}
+
+input[type=number]
+{
+    font-family:Lucida Grande, Arial, Helvetica, Verdana, sans-serif;
+    font-size:12px;
+    text-align: right;
+
+}
+
+button, input[type=submit]
+{
+    margin:10px 0px 5px 0px;
+    padding:4px 6px;
+    font-size:14px;
+    color:#FFFFFF;
+    background:#006E99;
+    border:0px;
+    cursor : pointer;
+}
+
+input[type=search]:hover, input[type=search]:focus
+{
+   /* box-shadow: 3px 3px 6px grey ;*/
+}
+
+button:hover
+{
+    box-shadow: 3px 3px 6px grey ;
+    transform: scale(1.2);
+}
+
+#page {
+    width:960px;
+    margin:0px auto;
+    background:#FFFFFF;
+}
+
+#connexion {
+    background:transparent;
+    width:100%;
+    text-align: right;
+    font-size:11px;
+    background:#FFFFFF url("../images/bg_body.gif") repeat-x;
+    padding:0px 0px 5px 0px;
+}
+
+#connexion a{
+    color:#464646;
+    text-decoration:underline;
+}
+
+#header {
+    width:960px;
+    height:152px;
+    overflow:hidden;
+    margin:0px 0px 0px 0px;
+    padding:0px;
+}
+
+#content {
+    margin-left:200px;
+    width:750px;
+    min-height: 450px;
+    padding:40px 0px 0px 0px;
+    background:#FFFFFF;
+}
+
+#error {
+    width:760px;
+    min-height: 450px;
+    margin:40px 100px 0px 100px;
+    background:#FFFFFF;
+}
+
+
+
+/* MENU */
+
+
+#menu {
+    position:absolute;
+    width: 180px;
+    margin: 10px;
+    padding: 0;
+    background:#FFFFFF;
+}
+
+#titreMenu {
+    width:100%;
+    text-align: center;
+    color: #006E99 ;
+    font-size: 20px;
+}
+
+
+#contentMenu {
+    background: #DDEEFF ;
+    list-style: none;
+    width:80%;
+    height : 150px;
+    border-radius:15px;
+}
+
+#contentMenu li {
+    list-style:none;
+}
+
+#contentMenu li a {
+    display: block ;
+    color: #006E99 ;
+    line-height: 1em ;
+    text-align: left ;
+    text-decoration: none ;
+    padding: 4px 0 ;
+    font-size: 16px;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+#menu li a:hover, #menu li a:focus, #menu li a:active {
+    font-weight: bold;
+    text-shadow: 4px 4px 6px grey ;
+    transform: scale(1.1);
+}
+
+/* ACTIONS SUR LES FORMULAIRES */
+
+#divProjets
+{
+    clear : both;
+    text-align : center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.lienRetour{
+    font-size:14px;
+    color:#006E99;
+    text-decoration: underline;
+}
+
+
+/* RECHERCHE */
+#divRechercheCriteres label
+{
+    display: inline-block;
+    width : 140px ;
+    margin : 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+#divRechercheCriteres
+{
+    padding-top: 25px;
+    padding-left : 40px;
+}
+
+
+
+
+
+#divRechercheBoutons
+{
+    clear : both;
+    text-align : center;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+
+/* NOUVEL USAGER */
+#nouvelItem
+{
+    display: inline-block;
+    margin-right: 5px;
+    padding:10px 6px;
+}
+
+#nouvelItem a
+{
+    font-size:14px;
+    font-weight:bold;
+    color:#006E99;
+}
+
+#nouvelItem img
+{
+    vertical-align: middle;
+}
+
+#nouvelItem:hover
+{
+    text-shadow: 3px 3px 6px grey ;
+    font-weight: bold;
+    transform: scale(1.2);
+}
+
+
+/* FORMULAIRE */
+
+.formulaireType1 ,.formulaireType2
+{
+    padding-left : 40px;
+}
+
+.formulaireType1 div ,.formulaireType2 div
+{
+    display: inline-block;
+}
+
+.formulaireType1 label ,.formulaireType2 label
+{
+    display: inline-block;
+    width : 200px ;
+    margin : 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+
+.formulaireType1 input[type=text], .formulaireType1  textarea, .formulaireType1 select, .formulaireType3 textarea
+{
+    display: inline-block;
+    width: 400px;
+    vertical-align: middle;
+}
+
+.formulaireType2 input[type=text]
+{
+    display: inline-block;
+    width: 200px;
+    vertical-align: middle;
+}
+
+
+
+/*Formulaire avec label textbox et combobox*/
+.ligneFormulaireType3 input[type=text]
+{
+    width: 260px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ligneFormulaireType3 select
+{
+    margin-left: 20px;
+    display: inline-block;
+    width: 115px;
+    vertical-align: middle;
+}
+
+.ligneFormulaireType3 div
+{
+    display: inline-block;
+}
+
+
+
+/* formulaire avec des montants */
+
+.formulaireType3 label:first-child
+{
+    display: inline-block;
+    width : 150px ;
+    margin : 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.formulaireType3 select
+{
+    display: inline-block;
+    width: 300px;
+    margin-top : 10px;
+    margin-bottom : 10px;
+    vertical-align: middle;
+}
+
+
+
+/* Pour définir des listes déroulantes de choix de dates */
+/* jour et année */
+.dateSelect  select:nth-child(odd)
+{
+    width: 50px;
+}
+
+/* mois */
+.dateSelect  select:nth-child(even)
+{
+    width: 90px;
+}
+
+
+#pret_dateOperation_day
+{
+    width: 40px;
+    margin : 0px;
+}
+
+#pret_dateOperation_month
+{
+    width: 85px;
+    margin : 0px;
+}
+
+#pret_dateOperation_year
+{
+    width: 55px;
+    margin : 0px;
+}
+
+#pret_usager
+{
+    width: 200px;
+    margin : 0px;
+}
+
+#pret_dateOperation
+{
+    display: inline-block;
+}
+
+
+#utilisateur_roles label
+{
+    display: inline-block;
+    width : 100px ;
+    margin : 0px;
+    text-align: left;
+}
+
+
+/* LISTES RESULTATS */
+
+#listeResultats, #listeResultatsArticles, #listeResultatsArticlesPrets, #listeResultatsArticlesEmprunts, #listeResultatsUsagers, #listePretsArticle, #listePretsUsager
+{
+    border-collapse:collapse;
+    width: 100%;
+    margin : auto;
+    margin-bottom : 25px;
+}
+
+
+#listeResultats td, #listeResultatsArticles td, #listeResultatsArticlesPrets td, #listeResultatsArticlesEmprunts td, #listeResultatsUsagers td, #listePretsArticle td, #listePretsUsager td
+{
+    border : solid 0px;
+    margin : 0px;
+    padding : 5px;
+    vertical-align: middle;
+}
+
+#listeResultats tr:nth-child(even), #listeResultatsArticles tr:nth-child(even), #listeResultatsArticlesPrets tr:nth-child(even), #listeResultatsArticlesEmprunts tr:nth-child(even), #listeResultatsUsagers tr:nth-child(even), #listePretsArticle tr:nth-child(even), #listePretsUsager tr:nth-child(even)
+{
+    background: #FFFFFF;
+    color :  #006E99;
+}
+
+#listeResultats tr:nth-child(odd), #listeResultatsArticles tr:nth-child(odd), #listeResultatsArticlesPrets tr:nth-child(odd), #listeResultatsArticlesEmprunts tr:nth-child(odd), #listeResultatsUsagers tr:nth-child(odd), #listePretsArticle tr:nth-child(odd), #listePretsUsager tr:nth-child(odd)
+{
+    background: #DDEEFF;
+    color :  #006E99;
+}
+
+#listeResultats thead>tr:first-child, #listeResultatsArticles thead>tr:first-child, #listeResultatsArticlesPrets thead>tr:first-child, #listeResultatsArticlesEmprunts thead>tr:first-child, #listeResultatsUsagers thead>tr:first-child, #listePretsArticle thead>tr:first-child, #listePretsUsager thead>tr:first-child
+{
+    background: #006E99;
+    color : #FFFFFF;
+}
+
+
+#listeResultats td.nowrap, #listeResultatsArticles td.nowrap, #listeResultatsArticlesPrets td.nowrap, #listeResultatsArticlesEmprunts td.nowrap, #listeResultatsUsagers td.nowrap, #listePretsArticle td.nowrap, #listePretsUsager td.nowrap
+{
+    white-space: nowrap;
+}
+
+
+#listeItem
+{
+    border-collapse:collapse;
+    margin : 10px;
+    min-width: 465px;
+}
+
+#listeItem td, th ,tr
+{
+    border : solid 0px;
+    margin : 0px;
+    padding : 5px;
+    text-align: center;
+}
+
+#listeItem tr:nth-child(even)
+{
+    background: #FFFFFF;
+    color :  #006E99;
+}
+
+#listeItem tr:nth-child(odd)
+{
+    background: #DDEEFF;
+    color :  #006E99;
+}
+
+#listeItem tr:first-child
+{
+    background: #006E99;
+    color : #FFFFFF;
+}
+
+
+#listeItem td.nowrap
+{
+    white-space: nowrap;
+}
+
+#footer {
+    clear:both;
+    margin:10px 0px 10px 0px;
+    padding:6px 10px 8px 10px;
+    text-align:center;
+    background:#FFFFFF;
+    border-top:2px solid #322212;
+}
+
+.error{
+    color:red;
+}
+
+.italic{
+    font-style: italic;
+}
+
+
+
+/* LOGIN */
+
+
+
+#divContentLogin {
+    width:100%;
+    height:500px;
+    line-height:500px;
+    padding:0px 0px 0px 0px;
+    text-align: center;
+}
+
+
+#divLogin
+{
+    vertical-align:middle;
+    width:350px;
+    line-height:1.2;
+    display:inline-block;
+    color:#006E99;
+}
+
+#divLogin fieldset
+{
+    border-color:#006E99;
+}
+
+#divLogin p
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+#divLogin label, #divLogin input[type=text],#divLogin input[type=password]
+{
+    display: inline-block;
+    width : 180px ;
+    margin : 5px;
+    text-align: left;
+}
+
+
+/*Centre l'image par rapport au contenu texte de la cellule*/
+.DegraderEtatArticle {
+    vertical-align : middle;
+}
+
