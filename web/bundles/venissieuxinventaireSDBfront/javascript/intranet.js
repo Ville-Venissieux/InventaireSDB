@@ -1,37 +1,10 @@
-
+//Code exécuté suite au chargement d'une page 
 $(document).ready(function () {
 
 
+/*********************** USAGERS ****************************************/
 
-//Liste des prêts d'un article (Ecran de détail d'un article)
- $('#listePretsArticle').DataTable({
-        //Afficher le champ de recherche
-        searching: false,
-        //Supprimer la pagination
-        bPaginate: false,
-        bLengthChange: false,
-        bInfo : false,
-        //Tri par défaut sur la date de pret
-        order: [[ 1, "desc" ]]
-    });
-    
-    
-    //Liste des prêts d'un usager (Ecran de détail d'un usager)
- $('#listePretsUsager').DataTable({
-        //Afficher le champ de recherche
-        searching: false,
-        //Supprimer la pagination
-        bPaginate: false,
-        bLengthChange: false,
-        bInfo : false,
-        //Tri par défaut sur la date de pret
-        order: [[ 2, "desc" ]]
-    });
-
-
-
-
-
+    //Liste des usagers
     $('#listeResultatsUsagers').DataTable({
         //Afficher le champ de recherche
         searching: true,
@@ -67,11 +40,22 @@ $(document).ready(function () {
             {orderable: false, targets: -1}
         ]
     });
+    
+    //Liste des prêts d'un usager (Ecran de détail d'un usager)
+    $('#listePretsUsager').DataTable({
+        //Afficher le champ de recherche
+        searching: false,
+        //Supprimer la pagination
+        bPaginate: false,
+        bLengthChange: false,
+        bInfo: false,
+        //Tri par défaut sur la date de pret
+        order: [[2, "desc"]]
+    });
 
+/*********************** ARTICLES ****************************************/
 
-
-
-
+    //Liste des articles
     $('#listeResultatsArticles').DataTable({
         //Afficher le champ de recherche
         searching: true,
@@ -130,16 +114,25 @@ $(document).ready(function () {
     });
 
 
-    //Force une taille minimum permettant l'affichage de la barre de chargement
+    //Force une hauteur minimum pour la lisibilité de l'affichage de la liste
     $('#listeResultatsArticles_wrapper').css('min-height', '500px');
 
+    //Liste des prêts d'un article (Ecran de détail d'un article)
+    $('#listePretsArticle').DataTable({
+        //Afficher le champ de recherche
+        searching: false,
+        //Supprimer la pagination
+        bPaginate: false,
+        bLengthChange: false,
+        bInfo: false,
+        //Tri par défaut sur la date de pret
+        order: [[1, "desc"]]
+    });
+    
+    
+/*********************** PRETS ****************************************/    
 
-
-
-
-
-
-    //Concerne l'affichage de la liste des articles pour les prêts
+    //Liste des articles disponibles (Ecran des prêts)
     var listeResultatsArticlesPretsTable = $('#listeResultatsArticlesPrets').DataTable({
         //Afficher le champ de recherche
         searching: true,
@@ -199,22 +192,22 @@ $(document).ready(function () {
             {orderable: false, targets: -1}
         ]
     });
+    
+     //Force une hauteur minimum pour la lisibilité de l'affichage de la liste
+    $('#listeResultatsArticlesPrets_wrapper').css('min-height', '500px');
 
 
-    //Concerne l'affichage de la liste des articles empruntés
+    //Liste des articles empruntés pour un utilisateur (Ecran des prêts)
     var listeResultatsArticlesEmpruntsTable = $('#listeResultatsArticlesEmprunts').DataTable({
         //Afficher le champ de recherche
         searching: false,
         //Ne pas afficher le nombre de lignes par page
         bLengthChange: false,
         processing: true,
-
         //Supression de la pagination
         bPaginate: false,
-        
         //supression des infos de pagination
         info: false,
-
         //Définition des colonnes
         columns: [
             {"data": "id", "orderable": true},
@@ -222,16 +215,12 @@ $(document).ready(function () {
             {"data": "categorie", "orderable": false},
             {"data": "etat", "orderable": false, "className": "dt-body-left dt-body-nowrap ",
                 "render": function (data, type, row) {
-
                     var htmlEtat = data + '&nbsp;';
-
-                    if (row.etat != 'Inutilisable')
+                    if (row.etat != 'Moyen')
                     {
                         htmlEtat = htmlEtat + '<a href=\"javascript:\"><img src=\"/InventaireSDB/web/bundles/venissieuxinventaireSDBfront/images/glyphicons-220-circle-arrow-down.png\" class="DegraderEtatArticle" alt=\"Dégrader l\'état\" /></a>';
                     }
-
                     return htmlEtat;
-
                 }
             },
             {"data": "commentaire", "orderable": false},
@@ -272,31 +261,26 @@ $(document).ready(function () {
     });
 
 
-    //Initialise la valeur du champ caché contenant  les emprunts
+
+
+    //Initialise la valeur des champs cachés contenant les id des articles empruntés initialement (au moment du chargement de la page) ainsi que ceux présents en temps réel dans la liste listeResultatsArticlesEmprunts
     listeResultatsArticlesEmpruntsTable.rows().every(function (rowIdx, tableLoop, rowLoop) {
         var data = this.data();
-        $('#hidListeResultatsArticlesEmprunts').val($('#hidListeResultatsArticlesEmprunts').val() + data.id + ';');
         $('#hidListeResultatsArticlesInitiaux').val($('#hidListeResultatsArticlesInitiaux').val() + data.id + ';');
+        $('#hidListeResultatsArticlesEmprunts').val($('#hidListeResultatsArticlesEmprunts').val() + data.id + ';');
+        
     });
 
 
-    //Force une taille minimum permettant l'affichage de la barre de chargement
-    $('#listeResultatsArticlesPrets_wrapper').css('min-height', '500px');
+  
 
-
-
-
-
-//Déplacer une ligne de la table des emprunts(listeResultatsArticlesEmprunts) vers la table des articles(listeResultatsArticlesPrets)
+//Déplacer une ligne de la liste des emprunts(listeResultatsArticlesEmprunts) vers la liste des articles disponibles (listeResultatsArticlesPrets)
     $('#listeResultatsArticlesEmprunts tbody').on('click', 'img.TransferArticle', function () {
+        
         var row = listeResultatsArticlesEmpruntsTable.row($(this).parents('tr'));
-        var rowNode = row.node();
-
-
-
+        
         //On retire l'id de l'article du champ caché
         var hidEmpruntsValue = $('#hidListeResultatsArticlesEmprunts').val();
-
         if (hidEmpruntsValue.indexOf(';' + row.data().id + ';') > -1)
         {
             $('#hidListeResultatsArticlesEmprunts').val(hidEmpruntsValue.replace(';' + row.data().id + ';', ';'));
@@ -305,84 +289,57 @@ $(document).ready(function () {
             $('#hidListeResultatsArticlesEmprunts').val(hidEmpruntsValue.replace(row.data().id + ';', ''));
         }
 
-
-        //Suppression de la ligne dans la liste initiale
+        //Suppression de la ligne dans la liste des emprunts
         row.remove().draw();
 
-        //Réaffichage de la liste des articles en conservant la pagination
+        //Rechargement (AJAX) de la liste des articles disponibles en conservant la pagination
         listeResultatsArticlesPretsTable.draw(false);
-
 
     });
 
 
-//Déplacer une ligne de la table des articles(listeResultatsArticlesPrets) vers la table des emprunts(listeResultatsArticlesEmprunts)
+//Déplacer une ligne de la liste des articles disponibles (listeResultatsArticlesPrets) vers la liste des emprunts(listeResultatsArticlesEmprunts)
     $('#listeResultatsArticlesPrets tbody').on('click', 'img.TransferEmprunt', function () {
+        
         var row = listeResultatsArticlesPretsTable.row($(this).parents('tr'));
         var rowNode = row.node();
 
         //On enregistre l'id de l'article concerné dans un champ caché
         $('#hidListeResultatsArticlesEmprunts').val($('#hidListeResultatsArticlesEmprunts').val() + row.data().id + ';');
 
-        //Suppression de la ligne dans la liste initiale
+        //Suppression de la ligne dans la liste des articles disponibles
         row.remove();
 
-        //Ajout de la ligne dans la liste de destination
+        //Ajout de la ligne dans la liste des emprunts
         listeResultatsArticlesEmpruntsTable
                 .row.add(rowNode)
                 .draw();
 
-        //Réaffichage de la liste des articles en conservant la pagination
+        //Réaffichage de la liste des articles disponibles en conservant la pagination
         listeResultatsArticlesPretsTable.draw(false);
 
     });
 
 
-
-    $('#listeResultatsArticlesEmprunts tbody').on('click', 'img.AmeliorerEtatArticle', function () {
-
-        var row = listeResultatsArticlesEmpruntsTable.row($(this).parents('tr'));
-        var row = listeResultatsArticlesEmpruntsTable.row($(this).parent('td'));
-
-
-        $.ajax({
-            url: './modifierEtat', // La ressource ciblée
-            type: 'GET', // Le type de la requête HTTP
-            dataType: 'text', //Le type de retour
-            data: {idArticle: row.data().id, ameliorer: true}, // indique l'article dont l'état est à modifier et le type de modification (amélioration ou dégradation)
-            success: function (nouvelEtat, statut) {
-                row.data().etat(nouvelEtat);
-                listeResultatsArticlesEmpruntsTable.draw();
-            }
-
-        });
-
-
-
-
-
-    });
-
-
-
-//Lorsque l'utilisateur clique sur le bouton de dégradation d'état d'un article
+    //Lorsque l'utilisateur clique sur le bouton afin d'indiquer la dégradation de l'état d'un article
     $('#listeResultatsArticlesEmprunts tbody').on('click', 'img.DegraderEtatArticle', function () {
 
         var row = listeResultatsArticlesEmpruntsTable.row($(this).parents('tr'));
 
-
         $.ajax({
-            url: './modifierEtat', // La ressource ciblée
-            type: 'GET', // Le type de la requête HTTP
-            dataType: 'text', //Le type de retour
-            data: {idArticle: row.data().id, ameliorer: false}, // indique l'article dont l'état est à modifier et le type de modification (amélioration ou dégradation)
+            url: './modifierEtat', 
+            type: 'GET', 
+            dataType: 'text', 
+            // indique l'article dont l'état est à modifier et le type de modification (dégradation)
+            data: {idArticle: row.data().id, ameliorer: false}, 
             success: function (nouvelEtat, statut) {
+                //Suite à l'enregistrement côté serveur, la cellule contenant l'état de l'article est mise à jour
                 listeResultatsArticlesEmpruntsTable.cell(row, 3).data(nouvelEtat).draw();
             }
         });
     });
 
-
+/*********************** EDITIONS ****************************************/ 
 
     //Ajout des libellés de choix Tous sur les listes déroulantes des éditions
     $('#edition_usager>option[value=\'\']').html('Tous');
