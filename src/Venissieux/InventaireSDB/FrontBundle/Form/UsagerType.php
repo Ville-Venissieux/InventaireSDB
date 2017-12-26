@@ -11,7 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 
-
+/**
+ * Formulaire Usager
+ */
 class UsagerType extends AbstractType
 {
     /**

@@ -37,19 +37,19 @@ class PretsController extends Controller {
             //Recherche des prêts concernant l'usager sélectionné
             $logger->info('Lancement d\'une recherche des prets');
 
-            //Soumission du formulaire : En cas de recherche de prets à partir d'un nom (cas 1) ou d'une validation des retours (cas 2)
+            
             if ($form->isSubmitted()) {
                 //Récupération des données du formulaire
                 $data = $form->getData();
             } else {
-                //Premier affichage
+                //Premier affichage : le formulaire affiche les prêts en cours du premier usager par ordre alphabétique
                 $usager = $em->getRepository('VenissieuxInventaireSDBFrontBundle:Usager')->findOneBy(array(), array('nom' => 'ASC'));
                 $form->get('usager')->setData($usager);
                 $data['usager'] = $usager;
             }
-
-
-            //Construction de la requête de recherche en fonction des critères saisis
+            
+            
+            //Construction de la requête de recherche des prêts en cours de l'usager
             $qb = $em->createQueryBuilder();
 
             if ($data['usager']) {
@@ -62,32 +62,30 @@ class PretsController extends Controller {
 
                 $logger->info('critère idUsager : ' . $data['usager']->getId());
             }
-            //Lancement de la requête de recherche
-            $query = $qb->getQuery();
-            $prets = $query->getResult();
+            
+            
 
 
 
-            //cas 2 : validation des prêts / retours
+            //Validation des prêts / retours si le bouton Valider a été cliqué
             if ($form->get('valider')->isClicked() && $form->isValid()) {
-                //$IDListeApres représente la liste des ID d'articles liés à un usager qui ont été modifiés par un utilisateur
-                //$IDListeAvant représente la liste des ID d'articles liés à un usager avant qu'ils n'aient été modifié par un utilisateur
-                //Récupération des choix de l'utilisateur
-                $IDListeApres = explode(";", $request->request->all()["hidListeResultatsArticlesEmprunts"], -1);
+                
 
-                //Récupération des prêts avant modification
-                $IDListeAvant = "";
-                foreach ($prets as $IDAvant) {
-                    $IDListeAvant = $IDListeAvant . StrVal($IDAvant->getArticle()->getId()) . ";";
-                }
-                $IDListeAvant = explode(";", $IDListeAvant, -1);
+                //Liste des ID d'articles prêtés à l'usager après opération de prêts / retours
+                $IDListeApres = explode(";", $request->request->all()["hidListeResultatsArticlesEmprunts"], -1);
+                
+                
+                 //Liste des ID d'articles prêtés à l'usager avant opération de prêts / retours
+                $IDListeAvant = explode(";", $request->request->all()["hidListeResultatsArticlesInitiaux"], -1);
+
 
                 //Récupération de la date de prêt et de l'usager
                 $datePret = $data['dateOperation'];
                 $usagerPret = $data['usager'];
 
-                //Traitement des changements dans la BDD
-                //Traitement des nouveaux prêts
+                //Enregistrement des changements en BDD
+                
+                //Traitement des nouveaux prêts (on compare chaque article prêté actuellement à la liste des prêts antérieurs)
                 foreach ($IDListeApres as $IDApres) {
                     if (!in_array($IDApres, $IDListeAvant)) {
                         intval($IDApres);
@@ -100,7 +98,8 @@ class PretsController extends Controller {
                         $em->flush();
                     }
                 }
-                //Traitement des retours
+                
+                //Traitement des retours (on compare chaque article prêté antérieurement à la liste actuelle des prêts)
                 foreach ($IDListeAvant as $IDAvant) {
                     if (!in_array($IDAvant, $IDListeApres)) {
                         $editerpret = $em->getRepository('VenissieuxInventaireSDBFrontBundle:Pret')->findOneBy(array('article' => $IDAvant, 'dateRetour' => NULL));
@@ -111,7 +110,7 @@ class PretsController extends Controller {
                 }
             }
 
-            //Lancement de la requête de recherche
+            //Lancement de la requête de recherche des prêts (suite ou non à mise à jour) 
             $query = $qb->getQuery();
             $prets = $query->getResult();
 
@@ -125,13 +124,14 @@ class PretsController extends Controller {
         }
     }
 
-    /**
-     * pagination de la liste des articles (AJAX)
-     * @return Response JSON
-     */
+   /**
+    * pagination de la liste des articles disponibles (AJAX)
+    * @param Request $request
+    * @return Response
+    */
     public function paginerAction(Request $request) {
 
-//Appel du repository
+        //Appel du repository
         $em = $this->container->get('doctrine')->getManager();
         $logger = $this->get('logger');
 
@@ -208,8 +208,9 @@ class PretsController extends Controller {
     }
 
     /**
-     * pagination de la liste des articles (AJAX)
-     * @return Response JSON
+     * Pagination de la liste des articles (AJAX)
+     * @param Request $request
+     * @return Response
      */
     public function modifierEtatAction(Request $request) {
 
@@ -217,6 +218,7 @@ class PretsController extends Controller {
         $em = $this->container->get('doctrine')->getManager();
         $logger = $this->get('logger');
         
+        //Libellé de l'état à afficher
         $libelleNouvelEtat = '';
 
         try {
@@ -228,11 +230,11 @@ class PretsController extends Controller {
             if ($article->getEtat() !== null) {
                 //Dans le cas d'une amélioration de l'état de l'article
                 if ($request->get('ameliorer') == 'true') {
-                    //On vérifie que l'article n'est pas à l'état neuf (on ne pourrait pas améliorer son état dans ce cas)
-                    if ($article->getEtat()->getId() > Etat::NEUF) {
+                    //On vérifie que l'article n'est pas à l'état excellent (on ne pourrait pas améliorer son état dans ce cas)
+                    if ($article->getEtat()->getId() < Etat::EXCELLENT) {
 
                         //Définition du nouvel état
-                        $nouvelEtat = $em->find('VenissieuxInventaireSDBFrontBundle:Etat', $article->getEtat()->getId() - 1);
+                        $nouvelEtat = $em->find('VenissieuxInventaireSDBFrontBundle:Etat', $article->getEtat()->getId() + 1);
                         $article->setEtat($nouvelEtat);
                         $logger->info('Modification de l\' article  n° ' . $article->getId() . ' avec l\'état ' . $nouvelEtat->getLibelle());
 
@@ -244,11 +246,11 @@ class PretsController extends Controller {
                     }
                 } else {
                     
-                    //On vérifie que l'article n'est pas à l'état inutilisable (on ne pourrait pas dégrader son état dans ce cas)
-                    if ($article->getEtat()->getId() < Etat::INUTILISABLE) {
+                    //On vérifie que l'article n'est pas à l'état moyen (on ne pourrait pas dégrader son état dans ce cas)
+                    if ($article->getEtat()->getId() > Etat::MOYEN) {
 
                         //Définition du nouvel état
-                        $nouvelEtat = $em->find('VenissieuxInventaireSDBFrontBundle:Etat', $article->getEtat()->getId() + 1);
+                        $nouvelEtat = $em->find('VenissieuxInventaireSDBFrontBundle:Etat', $article->getEtat()->getId() - 1);
                         $article->setEtat($nouvelEtat);
                         $logger->info('Modification de l\' article  n° ' . $article->getId() . ' avec l\'état ' . $nouvelEtat->getLibelle());
 

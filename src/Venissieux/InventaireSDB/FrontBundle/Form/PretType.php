@@ -12,11 +12,12 @@ use \Doctrine\ORM\EntityRepository;
 
 
 
-
+/**
+ * Formulaire Pret
+ */
 class PretType extends AbstractType
 {
     /**
-     * Construit le formulaire de recherche
      * @param FormBuilderInterface $builder
      * @param array $options
      */

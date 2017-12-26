@@ -10,6 +10,20 @@ namespace Venissieux\InventaireSDB\FrontBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository {
 
+    
+    /**
+     * Recherche des articles par critère
+     * @param type $data
+     * @param type $page
+     * @param type $max
+     * @param type $sortColumn
+     * @param type $sortDirection
+     * @param type $disponibleOnly
+     * @param type $listeArticlesAExclure
+     * @param type $listeArticlesAInclure
+     * @param type $getResult
+     * @return type
+     */
     public function search($data, $page = 0, $max = NULL, $sortColumn = null, $sortDirection = null, $disponibleOnly = false, $listeArticlesAExclure = null, $listeArticlesAInclure = null, $getResult = true) {
         $qb = $this->_em->createQueryBuilder();
         $query = isset($data['query']) && $data['query'] ? $data['query'] : null;
@@ -19,7 +33,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository {
                 ->from('VenissieuxInventaireSDBFrontBundle:Article', 'a');
 
 
-        //Dans le cas des articles disponibles (aucune occurence de prets avec une date de retour vide)
+        //Filtre sur les articles disponibles (aucune occurence de prets avec une date de retour vide)
         if ($disponibleOnly) {
             $sub = $this->_em->createQueryBuilder();
             $sub->select('p');
@@ -31,35 +45,29 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository {
             $qb->andWhere($qb->expr()->not($qb->expr()->exists($sub->getDQL())));
         }
 
-        //Dans le cas d'articles à exclure création d'une clause NOT IN
+        //Filtre sur les articles à exclure (création d'une clause NOT IN)
         if (!empty($listeArticlesAExclure)) {
             $qb->andWhere('a.id NOT IN (:listeArticlesAExclure)')
                     ->setParameter('listeArticlesAExclure', $listeArticlesAExclure);
         }
 
-        //Dans le cas d'articles à inclure création d'une clause IN
+        //Filtre sur les articles à inclure (création d'une clause IN en dehors des articles disponibles)
         if (!empty($listeArticlesAInclure)) {
             $qb->orWhere('a.id IN (:listeArticlesAInclure)')
                     ->setParameter('listeArticlesAInclure', $listeArticlesAInclure);
         }
-
-
-
-        //On ajoute un tri si demandé
+        
+        
+        //Ajout d'un tri si demandé
         if (isset($sortColumn) && isset($sortDirection)) {
             $qb->orderBy('a.' . $sortColumn, $sortDirection);
         }
 
-
-
-
+        
+        //Filtre sur le critère de recherche (nom, commentaire, id)
         if ($query) {
 
             $queryCriteria = 'UPPER(a.nom) like UPPER(:query) OR UPPER(a.commentaire) like UPPER(:query)';
-
-
-
-
 
             //Si la valeur recherchée est un entier, on ajoute une recherche sur l'id de l'article
             if (ctype_digit($query)) {
@@ -74,6 +82,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository {
             }
         }
 
+        //Filtre de pagination
         if ($max) {
             $preparedQuery = $qb->getQuery()
                     ->setMaxResults($max)

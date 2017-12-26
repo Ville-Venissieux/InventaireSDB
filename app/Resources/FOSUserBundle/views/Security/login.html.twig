@@ -6,8 +6,6 @@
 
 
 {% block javascript_head %}
-    <script src="{{ asset('bundles/venissieuxinventaireSDBfront/javascript/jquery-3.1.0.min.js') }}" charset="utf-8"></script>
-    <script src="{{ asset('bundles/venissieuxinventaireSDBfront/javascript/intranet.js') }}" charset="utf-8"></script>
 {% endblock %}
 
 {% block body %}
@@ -34,7 +32,6 @@
                             <input type="password" id="password" name="_password" required="required" />
                         </p>
                         {% if error %}
-                            {#<p>{{ error|trans({}, 'FOSUserBundle') }}</p>#}
                             <p class="error">Nom d'utilisateur ou mot de passe incorrect</p>
                         {% endif %}
                         <p>
@@ -45,7 +42,7 @@
             </div>        
         </div>
         <div id="footer">
-            InventaireSDB BETA 0.20 - Ville de Vénissieux - Direction des systèmes d'information - 2017
+            InventaireSDB v1.0 - Ville de Vénissieux - Direction des systèmes d'information - 2017
         </div>
     </div>
 {% endblock %}

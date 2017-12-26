@@ -39,24 +39,27 @@ class EditionController extends Controller {
 
                 //Récupération des données du formulaire
                 $data = $form->getData();
+                
+                 //Nécessaire pour déterminer si la requete conserne un usager
+                $usager = null;
 
                 //Construction de la requête de recherche des articles en fonction des critères saisis
                 $qb = $em->createQueryBuilder();
-                //Nécessaire pour déterminer si la requete conserne un usager
-                $usager = null;
-
+                
                 $qb->select('a')
                         ->from('VenissieuxInventaireSDBFrontBundle:Article', 'a')
                         ->orderBy('a.id', 'ASC');
 
-
+                //Filtre sur la catégorie
                 if (isset($data['categorie'])) {
+                    
                     $qb->leftJoin('a.categorie', 'c');
                     $qb->andWhere('c.id = :searchCategorie')->setParameter('searchCategorie', $data['categorie']->getId());
+                    
                     $logger->info('critère categorie : ' . $data['categorie']->getLibelle());
                 }
 
-                //Si on ne prend que les articles disponibles
+                //Filtre sur les articles disponibles
                 if ($data['disponible'] == '2') {
 
                     $sub = $em->createQueryBuilder();
@@ -64,45 +67,43 @@ class EditionController extends Controller {
                     $sub->from('VenissieuxInventaireSDBFrontBundle:Pret', 'p1');
                     $sub->andWhere('p1.article = a');
                     $sub->andWhere('p1.dateRetour is null');
-
-                    //Ajout de la condition not exists
                     $qb->andWhere($qb->expr()->not($qb->expr()->exists($sub->getDQL())));
 
                     $logger->info('critère disponibilité : ' . $data['disponible']);
                 }
 
 
-                //Si on ne prend que les articles prêtés
+                //Filtre sur les articles prêtés
                 if ($data['disponible'] == '3') {
                     
                     //Un article est prêté si sa date de retour est absente
                     $qb->innerJoin('a.prets', 'p');
                     $qb->andWhere('p.dateRetour is null');
 
-                    //Si on ne prends que les articles prêtés à un usager
+                    //Filtre sur les articles prêtés à un usager
                     if (isset($data['usager'])) {
                         $usager = $data['usager'];
                         $qb->innerJoin('p.usager', 'u');
                         $qb->andWhere('u.id = :searchUsager')->setParameter('searchUsager', $data['usager']->getId());
+                        
                         $logger->info('critère usager : ' . $data['usager']->getNomComplet());
                     }
                     
                     $logger->info('critère disponibilité : ' . $data['disponible']);
                 }
 
-
+                //Exécution de la requête
                 $query = $qb->getQuery();
                 $articles = $query->getResult();
 
-
-
                 //Création du rapport en HTML
                 $html = $this->renderView('VenissieuxInventaireSDBFrontBundle:Edition:exportArticles.html.twig', array('articles' => $articles,'usager' => $usager));
+                
                 //Création de l'export PDF
                 $pdf = $this->get("white_october.tcpdf")->create();
                 $pdf->SetAuthor('Ville de Vénissieux');
                 $pdf->SetTitle('Articles ');
-                $pdf->SetSubject('Export de l\'projet');
+                $pdf->SetSubject('Export des articles');
                 $pdf->SetKeywords('Inventaire SDB, PDF, article');
                 $pdf->setPrintHeader(false);
                 $pdf->setPrintFooter(false);
@@ -115,6 +116,7 @@ class EditionController extends Controller {
                 $original_mem = ini_get('memory_limit');
                 ini_set('memory_limit', '640M');
                 ini_set('max_execution_time', 240); // 240 secondes (4 minutes)
+                
                 //Transformation du html en pdf
                 $pdf->writeHTML($html, true, false, true, false, '');
                 $pdf->lastPage();
@@ -126,13 +128,10 @@ class EditionController extends Controller {
                 $response = new Response($pdf->Output('Articles.pdf', 'D'));
                 $response->headers->set('Content-Type', 'application/pdf');
 
-                //  $logger->info('Export de l\'projet ' . $projet->getLibelle());
+                $logger->info('Edition des articles terminée');
 
                 return $response;
             }
-
-
-
 
             //Affichage de la vue twig de liste des editions
             return $this->render('VenissieuxInventaireSDBFrontBundle:Edition:exporter.html.twig', array('form' => $form->createView()));

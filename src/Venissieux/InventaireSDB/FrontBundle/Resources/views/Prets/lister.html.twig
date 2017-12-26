@@ -6,11 +6,9 @@
 
     {{ form_errors(form) }}
 
-
-    <div class='ligneFormulaireType3'>    
-
-    </div>
     <br/>
+    
+    {#Liste des articles disponibles#}
     <table id="listeResultatsArticlesPrets">
         <thead>
             <tr>
@@ -45,6 +43,7 @@
     {# Champ caché permettant de stocker les id des articles initiaux de la liste listeResultatsArticlesEmprunts#}    
     <input type="hidden" name="hidListeResultatsArticlesInitiaux" id="hidListeResultatsArticlesInitiaux">
 
+    {#Liste des articles empruntés#}
     <table id="listeResultatsArticlesEmprunts">
         <thead>
             <tr>

@@ -1,4 +1,4 @@
-/* Feuille de styles Gestion des accès */
+/* Feuille de styles Inventaire SDB */
 
 body {
     margin:0px;
@@ -54,10 +54,6 @@ button, input[type=submit]
     cursor : pointer;
 }
 
-input[type=search]:hover, input[type=search]:focus
-{
-   /* box-shadow: 3px 3px 6px grey ;*/
-}
 
 button:hover
 {
@@ -106,6 +102,23 @@ button:hover
     min-height: 450px;
     margin:40px 100px 0px 100px;
     background:#FFFFFF;
+}
+
+#footer {
+    clear:both;
+    margin:10px 0px 10px 0px;
+    padding:6px 10px 8px 10px;
+    text-align:center;
+    background:#FFFFFF;
+    border-top:2px solid #322212;
+}
+
+.error{
+    color:red;
+}
+
+.italic{
+    font-style: italic;
 }
 
 
@@ -158,22 +171,6 @@ button:hover
     transform: scale(1.1);
 }
 
-/* ACTIONS SUR LES FORMULAIRES */
-
-#divProjets
-{
-    clear : both;
-    text-align : center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-.lienRetour{
-    font-size:14px;
-    color:#006E99;
-    text-decoration: underline;
-}
-
 
 /* RECHERCHE */
 #divRechercheCriteres label
@@ -192,9 +189,6 @@ button:hover
 }
 
 
-
-
-
 #divRechercheBoutons
 {
     clear : both;
@@ -204,7 +198,8 @@ button:hover
 }
 
 
-/* NOUVEL USAGER */
+/* NOUVEL OBJET (Article, Usager, Utilisateur) */
+
 #nouvelItem
 {
     display: inline-block;
@@ -232,7 +227,15 @@ button:hover
 }
 
 
-/* FORMULAIRE */
+/* FORMULAIRES */
+
+#divProjets
+{
+    clear : both;
+    text-align : center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 
 .formulaireType1 ,.formulaireType2
 {
@@ -267,30 +270,6 @@ button:hover
     width: 200px;
     vertical-align: middle;
 }
-
-
-
-/*Formulaire avec label textbox et combobox*/
-.ligneFormulaireType3 input[type=text]
-{
-    width: 260px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.ligneFormulaireType3 select
-{
-    margin-left: 20px;
-    display: inline-block;
-    width: 115px;
-    vertical-align: middle;
-}
-
-.ligneFormulaireType3 div
-{
-    display: inline-block;
-}
-
 
 
 /* formulaire avec des montants */
@@ -367,8 +346,14 @@ button:hover
     text-align: left;
 }
 
+.lienRetour{
+    font-size:14px;
+    color:#006E99;
+    text-decoration: underline;
+}
 
-/* LISTES RESULTATS */
+
+/* LISTES (Articles, Usagers, Utilisateurs, Prets) */
 
 #listeResultats, #listeResultatsArticles, #listeResultatsArticlesPrets, #listeResultatsArticlesEmprunts, #listeResultatsUsagers, #listePretsArticle, #listePretsUsager
 {
@@ -451,28 +436,14 @@ button:hover
     white-space: nowrap;
 }
 
-#footer {
-    clear:both;
-    margin:10px 0px 10px 0px;
-    padding:6px 10px 8px 10px;
-    text-align:center;
-    background:#FFFFFF;
-    border-top:2px solid #322212;
-}
-
-.error{
-    color:red;
-}
-
-.italic{
-    font-style: italic;
+/*Centre l'image par rapport au contenu texte de la cellule*/
+.DegraderEtatArticle {
+    vertical-align : middle;
 }
 
 
 
 /* LOGIN */
-
-
 
 #divContentLogin {
     width:100%;
@@ -513,8 +484,5 @@ button:hover
 }
 
 
-/*Centre l'image par rapport au contenu texte de la cellule*/
-.DegraderEtatArticle {
-    vertical-align : middle;
-}
+
 

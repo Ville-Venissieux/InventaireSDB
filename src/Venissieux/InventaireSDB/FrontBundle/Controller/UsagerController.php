@@ -2,7 +2,6 @@
 
 namespace Venissieux\InventaireSDB\FrontBundle\Controller;
 
-use Venissieux\InventaireSDB\FrontBundle\Form\UsagerSearchType;
 use Venissieux\InventaireSDB\FrontBundle\Form\UsagerType;
 use Venissieux\InventaireSDB\FrontBundle\Entity\Usager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -114,7 +113,7 @@ class UsagerController extends Controller {
             //Recherche du usager concerné
             $usager = $em->find('VenissieuxInventaireSDBFrontBundle:Usager', $id);
 
-            //Déclenchement d'une exception si  le usager n'existe pas
+            //Déclenchement d'une exception si l'usager n'existe pas
             if (!$usager) {
                 throw new NotFoundHttpException("Usager non trouvé");
             }

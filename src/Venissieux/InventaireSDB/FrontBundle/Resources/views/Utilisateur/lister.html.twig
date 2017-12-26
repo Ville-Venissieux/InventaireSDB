@@ -26,7 +26,6 @@
                     <td>{{ u.prenom }}</td>
                     <td>{{ u.nom }}</td>
                     <td>{{ u.roles|join(', ')|replace({'ROLE_USER':'',
-                                                    'ROLE_CONTRIBUTEUR':'Contributeur',
                                                     'ROLE_GESTIONNAIRE':'Gestionnaire',
                                                     'ROLE_ADMIN':'Administrateur' })|trim(', ') }}</td>
                     <td class="nowrap">

@@ -64,11 +64,12 @@ class ArticleController extends Controller {
 
                 //nouvel article
                 $article = new Article();
+                
+                //Initialisation de la date d'achat à la date du jour
                 $article->setDateAchat(new \DateTime());
                 
                 $logger->info('Saisie d\'un article');
             }
-            
             
 
             //Création du formulaire et association à l'objet concerné
@@ -98,6 +99,7 @@ class ArticleController extends Controller {
 
     /**
      * Suppression d'un article
+     * @param Request $request
      * @param type $id
      * @return RedirectResponse
      * @throws NotFoundHttpException
@@ -133,12 +135,13 @@ class ArticleController extends Controller {
     }
 
     /**
-     * pagination de la liste des articles (AJAX)
-     * @return Response JSON
+     * Pagination de la liste des articles (AJAX)
+     * @param Request $request
+     * @return Response
      */
     public function paginerAction(Request $request) {
         
-//Appel du repository
+        //Appel du repository
         $em = $this->container->get('doctrine')->getManager();
         $logger = $this->get('logger');
 

@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     
-    <!-- articles -->
+    <!-- Articles -->
     <route id="venissieux_inventaire_SDB_front_article_lister" path="/article/">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Article:lister</default>
     </route>
@@ -30,7 +30,7 @@
 
    
     
-    <!-- usagers -->
+    <!-- Usagers -->
     <route id="venissieux_inventaire_SDB_front_usager_lister" path="/usager/">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Usager:lister</default>
     </route>
@@ -45,7 +45,7 @@
     </route>
     
     
-    <!-- utilisateurs -->
+    <!-- Utilisateurs -->
     <route id="venissieux_inventaire_SDB_front_utilisateur_lister" path="/utilisateur/">
         <default key="_controller">VenissieuxInventaireSDBFrontBundle:Utilisateur:lister</default>
     </route>

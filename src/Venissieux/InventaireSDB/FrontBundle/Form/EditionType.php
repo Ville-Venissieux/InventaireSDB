@@ -12,6 +12,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use \Doctrine\ORM\EntityRepository;
 
+/**
+ * Formulaire Edition
+ */
 class EditionType extends AbstractType {
 
     /**

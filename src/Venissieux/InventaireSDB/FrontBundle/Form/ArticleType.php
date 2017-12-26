@@ -15,7 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 
 
-
+/**
+ * Formulaire Article
+ */
 class ArticleType extends AbstractType
 {
     /**
