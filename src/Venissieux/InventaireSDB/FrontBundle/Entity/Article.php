@@ -71,7 +71,7 @@ class Article
     
     /**
      * 
-     * @ORM\OneToMany(targetEntity="Pret",mappedBy="article")
+     * @ORM\OneToMany(targetEntity="Pret",mappedBy="article",cascade={"remove"})
      */
     private $prets;
 

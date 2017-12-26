@@ -37,7 +37,7 @@ class Usager
     
     /**
      * 
-     * @ORM\OneToMany(targetEntity="Pret",mappedBy="usager")
+     * @ORM\OneToMany(targetEntity="Pret",mappedBy="usager",cascade={"remove"})
      */
     private $prets;
     
