@@ -6,7 +6,7 @@ parameters:
 services:
     app.ldap:
         class: 'Symfony\Component\Ldap\LdapClient'
-        arguments: ["ldap://pissaro.veni.local"]
+        arguments: ["ldap://vedc01.veni.local"]
     monolog.formatter.user:
         class: Monolog\Formatter\LineFormatter
         arguments:

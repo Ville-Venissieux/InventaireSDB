@@ -4,12 +4,11 @@ namespace Venissieux\InventaireSDB\FrontBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use \Doctrine\ORM\EntityRepository;
 
 /**
@@ -41,13 +40,11 @@ class EditionType extends AbstractType {
                     'choice_label' => 'nomComplet',
                     'expanded' => false,
                     'required' => false))
+                ->add('historique', CheckboxType::class, array(
+                    'label' => 'Avec historique des mouvements',
+                    'required' => false))
                 ->add('editer', SubmitType::class, array('label' => 'Lancer l\'édition'))
         ;
-    }
-
-    public function finishView(FormView $view, FormInterface $form, array $options) {
-        /*$newChoice = new ChoiceView(array(), 'add', 'Add New');*/ // <- new option
-        //dump($view->children['categorie']);/*->vars['choices'][] = $newChoice;*/ //<- adding the new option 
     }
 
     /**
