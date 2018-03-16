@@ -35,9 +35,9 @@ class Usager
      */
     private $prenom;
     
-    /**
-     * 
+     /**
      * @ORM\OneToMany(targetEntity="Pret",mappedBy="usager",cascade={"remove"})
+     * @ORM\OrderBy({"datePret" = "DESC"})
      */
     private $prets;
     

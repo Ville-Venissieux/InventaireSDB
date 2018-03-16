@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
 /**
  * Controleur lié aux editions
  */
@@ -99,13 +98,20 @@ class EditionController extends Controller {
                 //Exécution de la requête
                 $query = $qb->getQuery();
                 $articles = $query->getResult();
-                
-                
+
+
                 //Création de l'export PDF
                 $pdf = $this->get("white_october.tcpdf")->create();
-                
-                //Génération du pdf des articles sans historique de mouvement
-                PdfGenerator::generateBasicExport($pdf,$categorie,$usager,$articles);
+
+
+                //Détermination du rapport à générer (articles ou mouvements d'article d'un usager)
+                if ($data['historique']) {
+                    //Génération du pdf des articles d'un usager avec historique de mouvement
+                    PdfGenerator::generateHistoryExport($pdf, $categorie, $usager);
+                } else {
+                    //Génération du pdf des articles sans historique de mouvement
+                    PdfGenerator::generateBasicExport($pdf, $categorie, $usager, $articles);
+                }
 
                 //Envoi du fichier pdf à télécharger
                 $response = new Response($pdf->Output('Articles.pdf', 'D'));
